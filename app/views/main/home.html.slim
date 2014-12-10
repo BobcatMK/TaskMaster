@@ -1,0 +1,51 @@
+div
+    nav.navbar.navbar-default role="navigation"
+        .container
+            .row
+                .col-xs-12 class="customized-navbar" 
+                    .navbar-header
+                        p.m-t-15.droid-sans.color-337ab7.font-30-bold TaskMaster
+                        button.m-t--50 id="navbar_changer" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"
+                            span.sr-only Toggle navigation
+                            span.icon-bar
+                            span.icon-bar
+                            span.icon-bar
+                    .nav.navbar-nav.navbar-right.navbar-collapse.collapse.m-t-17 id="collapse"
+                        a href="#{ajax_login_path}" id="ajax_1" data-remote="true"
+                            button.btn.btn-primary.m-r-20 type="button"
+                                b Log in
+                        a href="#{ajax_signup_path}" data-remote="true"
+                            button.btn.btn-primary.m-r-20 type="button"
+                                b Sign up
+                        a href="#"
+                            button.btn.btn-primary.m-r-20 type="button"
+                                b Contact
+    .container
+        .row
+            .col-xs-8.col-xs-offset-2.text-center.droid-sans.font-17
+
+                br
+                br
+                p Welcome to TaskMaster
+
+                p This application was made for you!
+                p How do I know that?
+
+                p Because you are human being and you have things to do. And since you have things to do on daily basis, you know how hard it is sometimes to remember every single thing.
+
+                p And this is where TaskMaster comes into game.
+
+                p Simply put, this app will help you organize your life.
+
+                p Have a great time using TaskMaster!
+                br
+                a.btn.btn-primary.btn-lg.font-20.font-bold href="#{ajax_signup_path}" data-remote="true" Start Now
+                br
+                br
+                br
+
+    nav.navbar.navbar-default.m-b-0
+        .container
+            .row
+                .col-xs-12.text-center
+                    .m-t-15 Copyright &copy; 2014 Matthew Kilan

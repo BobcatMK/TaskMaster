@@ -1,0 +1,104 @@
+// Place all the styles related to the main controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*
+.bg-color-2a88bf {
+    background-color: #2a88bf;
+}
+.bg-color-23719f {
+    background-color: #23719f;
+}
+.navbar-button-hover:hover {
+    background-color: #fff;
+    color: #23719f;
+}
+*/
+.html,
+.body {
+    height: 100%;
+}
+.m-t-10 {
+    margin-top: 10px;
+}
+.m-t-15 {
+    margin-top: 15px;
+}
+.m-t-7 {
+    margin-top: 7px;
+}
+.m-t-17 {
+    margin-top: 17px;
+}
+.m-t--50 {
+    margin-top: -50px;
+}
+.m-b-20 {
+    margin-bottom: 20px;
+}
+.m-b-30 {
+    margin-bottom: 30px;
+}
+.m-b-50 {
+    margin-bottom: 50px;
+}
+.m-t-50 {
+    margin-top: 50px;
+}
+.m-r-20 {
+    margin-right: 20px;
+}
+.droid-sans {
+    font-family: 'Droid Sans', sans-serif;
+}
+.color-337ab7 {
+    color: #337ab7;
+}
+.font-30-bold {
+    font-size: 30px;
+    font-weight: bold;
+}
+.font-17 {
+    font-size: 17px;
+}
+.font-20 {
+    font-size: 20px;
+}
+.font-bold {
+    font-weight: bold;
+}
+.m-b-0 {
+    margin-bottom: 0px;
+}
+.container-480 {
+    width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.pop-up {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+.pop-up-background {
+    background-color: transparentize(black,.5);
+    height: 100vh;
+}
+.z-index-high {
+    z-index: 20;
+}
+.disable-popup {
+    position: relative;
+    left: 90%;
+    top: -65px;
+    width: 10px;
+}
+@media (max-width: 768px) {
+    .col-xs-8.col-xs-offset-2.text-center.droid-sans.font-17 {
+        font-size: 15px;
+    }
+}
