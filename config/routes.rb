@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get "/ajax_login",to: "main#ajax_login",as: :ajax_login
   get "/ajax_signup", to: "main#ajax_signup",as: :ajax_signup
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

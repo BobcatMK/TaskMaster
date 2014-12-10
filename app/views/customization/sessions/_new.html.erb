@@ -2,7 +2,11 @@
   <h2 class="text-center m-b-30">Log In</h2>
   <div class="disable-popup font-bold font-20">x</div>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => { :class => "form-horizontal"}) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => { :class => "form-horizontal",:id => "form_log_in"},remote: true) do |f| %>
+    <% if flash[:logged] %>
+      <div><%= flash[:logged] %></div>
+    <% end %>
+
     <div class="form-group m-b-20">
       <%= f.label :email,class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
@@ -29,7 +33,7 @@
     <br />
 
     <div class="actions form-group text-center">
-      <%= f.submit "Log In", class: "btn btn-success btn-lg" %>
+      <%= f.submit "Log In", class: "btn btn-success btn-lg",id: "submitter" %>
     </div>
   <% end %>
 
@@ -44,5 +48,12 @@
 <script type="text/javascript">
     $(".disable-popup").click(function() {
         $(".ajax-login").remove();
-    })
+    });
+    $("#submitter").click(function() {
+        if (!($(".error-login").length)) {
+          $(".disable-popup.font-bold.font-20").after("<div class='error-login text-center'></div>");
+          $(".error-login").append("<div class='alert alert-info' role='alert'>Password or login is incorrect</div>");
+          $(".error-login").after("<br />");
+        };
+    });
 </script>

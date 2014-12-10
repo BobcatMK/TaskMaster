@@ -26,6 +26,15 @@ div
 
                 br
                 br
+                - if current_user
+                    = link_to("Log out",destroy_user_session_path,method: :delete)
+
+                - if current_user
+                    p = current_user
+                - else
+                    p = "current_user jest nil"
+
+
                 p Welcome to TaskMaster
 
                 p This application was made for you!
