@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
-  root "main#home"
 
+
+  # MAIN CONTROLLER
+  root "main#home"
   get "/ajax_login",to: "main#ajax_login",as: :ajax_login
   get "/ajax_signup", to: "main#ajax_signup",as: :ajax_signup
+  get "/contact", to: "main#contact", as: :contact
+
+  # USER CONTROLLER
+  get "/test",to: "user#test",as: :test
+
 
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.

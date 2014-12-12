@@ -14,9 +14,11 @@
     color: #23719f;
 }
 */
-.html,
-.body {
+.html {
     height: 100%;
+}
+.body {
+    min-height: 100%;
 }
 .m-t-10 {
     margin-top: 10px;
@@ -33,6 +35,9 @@
 .m-t--50 {
     margin-top: -50px;
 }
+.m-b-10 {
+    margin-bottom: 10px;
+}
 .m-b-20 {
     margin-bottom: 20px;
 }
@@ -47,6 +52,15 @@
 }
 .m-r-20 {
     margin-right: 20px;
+}
+.m-r-30 {
+    margin-right: 30px;
+}
+.m-b-40 {
+    margin-bottom: 40px;
+}
+.m-b-60 {
+    margin-bottom: 60px;
 }
 .droid-sans {
     font-family: 'Droid Sans', sans-serif;
@@ -86,7 +100,7 @@
 }
 .pop-up-background {
     background-color: transparentize(black,.5);
-    height: 100vh;
+    min-height: 100%;
 }
 .z-index-high {
     z-index: 20;
@@ -98,8 +112,12 @@
     width: 10px;
     cursor: pointer;
 }
+.append-here {
+    min-height: 78vh;
+}
+
 @media (max-width: 768px) {
-    .col-xs-8.col-xs-offset-2.text-center.droid-sans.font-17 {
+    .droid-sans.font-17 {
         font-size: 15px;
     }
 }

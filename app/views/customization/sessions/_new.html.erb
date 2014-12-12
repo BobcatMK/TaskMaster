@@ -46,14 +46,19 @@
 </div>
 
 <script type="text/javascript">
+    console.log(document.body.clientHeight);
     $(".disable-popup").click(function() {
         $(".ajax-login").remove();
     });
-    $("#submitter").click(function() {
-        if (!($(".error-login").length)) {
-          $(".disable-popup.font-bold.font-20").after("<div class='error-login text-center'></div>");
-          $(".error-login").append("<div class='alert alert-info' role='alert'>Password or login is incorrect</div>");
-          $(".error-login").after("<br />");
-        };
+    $( document ).ajaxError(function() {
+      if (!($(".error-login").length)) {
+        $(".disable-popup.font-bold.font-20").after("<div class='error-login text-center'></div>");
+        $(".error-login").append("<div class='alert alert-info' role='alert'>Password or login is incorrect</div>");
+        $(".error-login").after("<br />");
+      };
     });
+    // function resizePopUp() {
+    //   console.log(window.innerHeight);
+    // }
+    // resizePopup();
 </script>
