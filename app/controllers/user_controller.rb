@@ -1,9 +1,11 @@
 class UserController < ApplicationController
-    layout "user"
+    layout "application"
 
-    def test
+    def logged_signed
         if current_user
-            render html: "<div>AAAAAAAAAAAALE JAJA</div>".html_safe
+            respond_to do |format|
+                format.html
+            end
         elsif !current_user
             redirect_to root_path
         end

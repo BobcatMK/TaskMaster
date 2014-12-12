@@ -26,5 +26,6 @@ $(document).ready(function() {
         $(".pop-up").css("height",documentHeight);
         $(".pop-up").css("width",documentWidth);
     })
+
 });
 

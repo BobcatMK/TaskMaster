@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "/contact", to: "main#contact", as: :contact
 
   # USER CONTROLLER
-  get "/test",to: "user#test",as: :test
+  get "/application",to: "user#logged_signed",as: :logged_signed
 
 
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }

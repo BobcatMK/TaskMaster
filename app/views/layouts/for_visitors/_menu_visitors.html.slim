@@ -1,0 +1,25 @@
+nav.navbar.navbar-default role="navigation"
+    .container
+        .row
+            .col-xs-12 class="customized-navbar" 
+                .navbar-header
+                    a.no-text-decoration href="#{root_path}" data-remote="true"
+                        p.m-t-15.droid-sans.color-337ab7.font-30-bold TaskMaster
+                    button.m-t--50 id="navbar_changer" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                .nav.navbar-nav.navbar-right.navbar-collapse.collapse.m-t-17 id="collapse"
+                    a href="#{root_path}" data-remote="true"
+                        button.btn.btn-primary.m-r-20 type="button"
+                            b Home
+                    a href="#{ajax_login_path}" id="ajax_1" data-remote="true"
+                        button.btn.btn-primary.m-r-20 type="button"
+                            b Log in
+                    a href="#{ajax_signup_path}" data-remote="true"
+                        button.btn.btn-primary.m-r-20 type="button"
+                            b Sign up
+                    a href="#{contact_path}" data-remote="true"
+                        button.btn.btn-primary.m-r-20 type="button"
+                            b Contact

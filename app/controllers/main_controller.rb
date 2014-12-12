@@ -1,43 +1,57 @@
 class MainController < ApplicationController
-  layout "visitor"
+  layout "application"
 
   def home
     if !current_user
       respond_to do |format|
-        format.html { render :home }
+        format.html
         format.js { render "home.js.erb" }
       end
     elsif current_user
-      render html: '<a href="/users/sign_out" data-method="delete" rel="nofollow">Log out bitch</a>'.html_safe, :layout => "visitor"
+      respond_to do |format|
+        format.html { redirect_to logged_signed_path }
+      end
     end
   end
 
   def ajax_login
+    @token_a = form_authenticity_token
     if !current_user
       respond_to do |format|
-        format.html { redirect_to new_user_session_path }
+        format.html { redirect_to root_path }
         format.js
       end
     elsif current_user
-      render html: '<a href="/users/sign_out" data-method="delete" rel="nofollow">Log out bitch</a>'.html_safe, :layout => "visitor"
+      respond_to do |format|
+        format.html { redirect_to logged_signed_path }
+      end
     end
   end
 
   def ajax_signup
     if !current_user
       respond_to do |format|
-        format.html { redirect_to new_user_registration_path }
+        format.html { redirect_to root_path }
         format.js
       end
     elsif current_user
-      render html: '<a href="/users/sign_out" data-method="delete" rel="nofollow">Log out bitch</a>'.html_safe, :layout => "visitor"
+      respond_to do |format|
+        format.html { redirect_to logged_signed_path }
+      end
     end
   end
 
   def contact
     @contact = Contact.first
-    respond_to do |format|
-      format.js { render "contact.js.erb" }
+    if !current_user
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.js { render "contact.js.erb" }
+      end
+    elsif current_user
+      respond_to do |format|
+        format.html { redirect_to logged_signed_path }
+      end
     end
   end
 

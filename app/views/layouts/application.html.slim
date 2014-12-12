@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title TaskMasterRails
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true 
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true 
+    = csrf_meta_tags 
+  body
+    div
+        .menu-for-ajax
+            - if !current_user
+                = render :partial => "layouts/for_visitors/menu_visitors"
+            - elsif current_user
+                = render :partial => "layouts/for_users/menu_users"
+            
+        .clear-for-ajax
+            .append-here            
+                = yield
+
+        nav.navbar.navbar-default.m-b-0
+            .container
+                .row
+                    .col-xs-12.text-center
+                        .m-t-15 Copyright &copy; 2014 Matthew Kilan

@@ -112,8 +112,20 @@
     width: 10px;
     cursor: pointer;
 }
-.append-here {
+.clear-for-ajax {
     min-height: 78vh;
+}
+.no-text-decoration:link {
+    text-decoration: none !important;
+}
+.no-text-decoration:visited {
+    text-decoration: none !important;
+}
+.no-text-decoration:hover {
+    text-decoration: none !important;
+}
+.no-text-decoration:active {
+    text-decoration: none !important;
 }
 
 @media (max-width: 768px) {
