@@ -47,8 +47,20 @@
 .m-b-50 {
     margin-bottom: 50px;
 }
+.m-r-5 {
+    margin-right: 5px !important;
+}
 .m-t-50 {
     margin-top: 50px;
+}
+.m-r-50 {
+    margin-right: 50px;
+}
+.m-l-50 {
+    margin-left: 50px;
+}
+.m-l-5 {
+    margin-left: 5px !important;
 }
 .m-r-20 {
     margin-right: 20px;
@@ -62,6 +74,12 @@
 .m-b-60 {
     margin-bottom: 60px;
 }
+.m-b-0 {
+    margin-bottom: 0px;
+}
+.m-t-150 {
+    margin-top: 150px !important;
+}
 .droid-sans {
     font-family: 'Droid Sans', sans-serif;
 }
@@ -72,18 +90,37 @@
     font-size: 30px;
     font-weight: bold;
 }
+.font-15 {
+    font-size: 15px;
+}
 .font-17 {
     font-size: 17px;
 }
 .font-20 {
     font-size: 20px;
 }
+.font-30 {
+    font-size: 30px;
+}
+.font-40 {
+    font-size: 40px;
+}
+.color-337ab7 {
+    color: #337ab7;
+}
 .font-bold {
     font-weight: bold;
 }
-.m-b-0 {
-    margin-bottom: 0px;
+.margin-auto {
+    margin: 0 auto;
 }
+.width-33 {
+    width: 33%;
+}
+.width-27 {
+    width: 27%;
+}
+
 .container-480 {
     width: 480px;
     margin-left: auto;
@@ -127,9 +164,52 @@
 .no-text-decoration:active {
     text-decoration: none !important;
 }
+#main_menu {
+    min-height: 70px;
+}
+.dropdown2 {
+    width: 100%;
+}
+#dropdown2 {
+    width: 100%;
+}
+.table-customized {
+    width: 50%;
+    margin: 0 auto;
+}
+.font-color-97d077 {
+    color: #97d077;
+}
+.min-height-400 {
+    min-height: 400px;
+}
+.adding-new-task {
+    position: relative !important;
+    top: 125px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+@media (max-width: 310px) {
+    #logo {
+        // font-size:14px;
+    } 
+}
 
 @media (max-width: 768px) {
     .droid-sans.font-17 {
         font-size: 15px;
     }
+    #dropdown1 {
+        float: right;
+        margin-top: 10px;
+        margin-right: 20px;
+    }
+    .dropdown-menu {
+        left: auto;
+        right: 20px;
+    }
 }
+

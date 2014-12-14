@@ -1,4 +1,28 @@
-nav.navbar.navbar-default role="navigation"
+nav.navbar.navbar-default id="main_menu" role="navigation"
+    .container
+        .row
+            .col-xs-6.col-sm-6 class="customized-navbar" id="taskmaster"
+                .navbar-header
+                    a.no-text-decoration href="#{root_path}" data-remote="true"
+                        p.m-t-15.droid-sans.color-337ab7.font-30-bold id="logo" TaskMaster
+            .col-xs-6.col-sm-6 id="dropdown-menu"
+                .dropdown.nav.navbar-nav.navbar-right
+                    button.btn.btn-primary.dropdown-toggle.m-t-17.font-bold type="button" id="dropdown1" data-toggle="dropdown" aria-expanded="true"
+                        | Menu
+                        span.caret.m-l-5
+                    ul.dropdown-menu id="ul-dropdown" role="menu" aria-labelledby="dropdown1"
+                        li.text-center role="presentation"
+                            a role="menuitem" tabindex="-1" href="#" Action
+                        li role="presentation" class="divider"
+                        li.text-center role="presentation"
+                            a role="menuitem" tabindex="-1" href="#" Action2
+                        li role="presentation" class="divider"
+                        li.text-center role="presentation"
+                            a role="menuitem" tabindex="-1" href="#{destroy_user_session_path}" data-method="delete" rel="nofollow"
+                                | Log Out
+
+
+/nav.navbar.navbar-default role="navigation"
     .container
         .row
             .col-xs-12 class="customized-navbar" 
@@ -14,3 +38,4 @@ nav.navbar.navbar-default role="navigation"
                     a href="#{destroy_user_session_path}" data-method="delete" rel="nofollow"
                         button.btn.btn-primary.m-r-20 type="button"
                             b Log Out
+                        .color-337ab7.font-30.glyphicon.glyphicon-off aria-hidden="true"

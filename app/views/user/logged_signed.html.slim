@@ -1,4 +1,70 @@
-p logged_signed.html.slim
-a href="#{destroy_user_session_path}" data-method="delete" rel="nofollow"
-    button.btn.btn-primary.m-r-20 type="button"
-        b Log Out
+.container
+    .row
+        .col-xs-8
+            .well.min-height-400
+                .droid-sans.font-15.width-27.margin-auto You have no tasks for today
+                .font-color-97d077.adding-new-task.width-33.font-40.font-bold.droid-sans 
+                    span.glyphicon.glyphicon-plus aria-hidden="true"
+                    |  Add Task
+        .col-xs-4
+            .dropdown.droid-sans
+                button.btn.btn-primary.dropdown-toggle type="button" id="dropdown2" data-toggle="dropdown" aria-expanded="true"
+                    | Day View
+                    span.caret.m-l-5
+                ul.dropdown-menu.dropdown2 role="menu" aria-labelledby="dropdown2"
+                    li.text-center role="presentation"
+                        a role="menuitem" tabindex="-1" href="#"
+                            | Day View
+                        a role="menuitem" tabindex="-1" href="#"
+                            | Week View
+                        a role="menuitem" tabindex="-1" href="#"
+                            | Month View
+                        a role="menuitem" tabindex="-1" href="#"
+                            | Tasks View
+            br
+            br
+            table.table.table-hover.table-customized.text-center.droid-sans
+                thead
+                    tr.info
+                        th.text-center Quick Access:
+                tbody
+                    tr
+                        td Today
+                    tr
+                        td Tomorrow
+                    tr
+                        td Next 7 days
+                    tr
+                        td Assigned Tasks
+                    tr
+                        td Unassigned Tasks
+
+            br
+            br
+            table.table.table-hover.table-customized.text-center.droid-sans
+                thead
+                    tr.info
+                        th.text-center Notes Panel
+
+            br
+            br
+            table.table.table-hover.table-customized.text-center.droid-sans
+                thead
+                    tr.info
+                        th.text-center ToDo Lists:
+                tbody
+                    tr
+                        td.font-color-97d077
+                            span.glyphicon.glyphicon-plus aria-hidden="true"
+                            |  Add ToDo list
+                    tr
+                        td Work
+                    tr
+                        td Shopping
+                    tr
+                        td Personal
+                    tr
+                        td Health
+                    tr
+                        td Books to read
+

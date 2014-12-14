@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   # MAIN CONTROLLER
   root "main#home"
+  get "/home",to: "main#home",as: :home
   get "/ajax_login",to: "main#ajax_login",as: :ajax_login
   get "/ajax_signup", to: "main#ajax_signup",as: :ajax_signup
   get "/contact", to: "main#contact", as: :contact

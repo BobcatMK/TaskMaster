@@ -12,12 +12,36 @@ $(document).ready(function() {
     // $("body").on("click",".container-480.well.m-t-50",function() {
     //     $(".container-480.well.m-t-50").append("hello");
     // })
+    function forMobile() {
+        if (document.body.clientWidth < 300) {
+            $("#taskmaster").removeClass("col-xs-6")
+            $("#taskmaster").addClass("text-center")
+            $("#dropdown-menu").removeClass("col-xs-6")
+            $("#dropdown1").addClass("btn-block");
+            $("#dropdown1").css("margin-right","0");
+            $("#dropdown-menu").css("margin-left","10px")
+            $("#dropdown-menu").css("margin-right","10px")
+            $("#ul-dropdown").css("right","0");
+            $("#ul-dropdown").css("width","100%");
+        } else if (document.body.clientWidth >= 300) {
+            $("#taskmaster").addClass("col-xs-6")
+            $("#taskmaster").removeClass("text-center");
+            $("#dropdown-menu").addClass("col-xs-6");
+            $("#dropdown1").removeClass("btn-block");
+            $("#dropdown1").css("margin-right","20px");
+            $("#dropdown-menu").css("margin-right","0")
+            $("#dropdown-menu").css("margin-left","0")
+            $("#ul-dropdown").css("right","0");
+            $("#ul-dropdown").css("width","initial");
+        }
+    }
 
     $(document).ajaxComplete(function() {
         documentHeight = document.body.clientHeight;
         documentWidth = document.body.clientWidth;
         $(".pop-up").css("height",documentHeight);
         $(".pop-up").css("width",documentWidth);
+        forMobile() 
     })
 
     $(window).resize(function() {
@@ -25,6 +49,17 @@ $(document).ready(function() {
         documentWidth = document.body.clientWidth;
         $(".pop-up").css("height",documentHeight);
         $(".pop-up").css("width",documentWidth);
+        // var elem = $(".menu-for-ajax")
+
+        // var part2 = elem.height();
+        // var part3 = elem.width();
+
+        // console.log("Height is: " + part2 + " , Width is: " + part3);
+        forMobile()
+    })
+
+    $(document).on("page:change",function() {
+        forMobile()      
     })
 
 });
