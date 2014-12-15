@@ -36,6 +36,13 @@ $(document).ready(function() {
         }
     }
 
+    function checker() {
+        var elem = $(".glyphicon.glyphicon-arrow-left.color-337ab7.font-50").parent();
+        var part2 = elem.height();
+        var part3 = elem.width();
+        console.log("Height is: " + part2 + " , Width is: " + part3);
+    }
+
     $(document).ajaxComplete(function() {
         documentHeight = document.body.clientHeight;
         documentWidth = document.body.clientWidth;
@@ -49,17 +56,12 @@ $(document).ready(function() {
         documentWidth = document.body.clientWidth;
         $(".pop-up").css("height",documentHeight);
         $(".pop-up").css("width",documentWidth);
-        // var elem = $(".menu-for-ajax")
-
-        // var part2 = elem.height();
-        // var part3 = elem.width();
-
-        // console.log("Height is: " + part2 + " , Width is: " + part3);
         forMobile()
     })
 
     $(document).on("page:change",function() {
-        forMobile()      
+        forMobile()
+        checker()      
     })
 
 });
