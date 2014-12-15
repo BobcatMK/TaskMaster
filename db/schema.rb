@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141211151010) do
+ActiveRecord::Schema.define(version: 20141215160715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "calendars", force: true do |t|
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "day"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "contacts", force: true do |t|
     t.string   "fullname"
@@ -23,6 +31,28 @@ ActiveRecord::Schema.define(version: 20141211151010) do
     t.string   "facebook"
     t.string   "twitter"
     t.string   "github"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tasks", force: true do |t|
+    t.text     "description"
+    t.time     "start"
+    t.time     "end"
+    t.boolean  "completed"
+    t.integer  "todolist_id"
+    t.integer  "calendar_id"
+    t.integer  "user_id",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["calendar_id"], name: "index_tasks_on_calendar_id", using: :btree
+  add_index "tasks", ["todolist_id"], name: "index_tasks_on_todolist_id", using: :btree
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
+
+  create_table "todolists", force: true do |t|
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
