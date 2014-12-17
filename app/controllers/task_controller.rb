@@ -9,7 +9,14 @@ class TaskController < ApplicationController
     end
 
     def create_task
-        @task = Task.new(create_task_params)
+        @start = params[:dupa][:poczatek]
+        @start_array = @start.split("/")
+        puts @start_array
+        @end = params[:dupa][:koniec]
+        @end_array = @end.split("/")
+        puts @end_array
+
+        @task = Task.new(:start => DateTime.new(@start_array[0].to_i,@start_array[1].to_i,@start_array[2].to_i,@start_array[3].to_i,@start_array[4].to_i),:end => DateTime.new(@end_array[0].to_i,@end_array[1].to_i,@end_array[2].to_i,@end_array[3].to_i,@end_array[4].to_i),:description => params[:task][:description],:completed => params[:task][:completed],:todolist_id => params[:task][:todolist_id],:user_id => params[:task][:user_id])
         if @task.save
             redirect_to logged_signed_path
         else

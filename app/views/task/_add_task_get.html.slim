@@ -4,19 +4,23 @@
     .disable-popup.font-bold.font-20 x
   = form_for(@task,:url => url_for(:controller => "task",:action => "create_task"),:html => {:class => "width-80 margin-auto",role: "form"}) do |object|
       .form-group
-          = label :poczatek
-          = text_field :poczatek,class: "form-control"
-          = label :koniec
-          = text_field :koniec,class: "form-control"
-          = object.label :description
-          = object.text_area :description,class: "form-control textarea-customized"
-          = object.hidden_field :user_id, {:value => "#{current_user.id}"}
-          = object.hidden_field :completed, {:value => false}
-          = object.hidden_field :todolist_id, {:value => nil}
+
+        label for="begin" Begin
+        input if="begin" class="form-control" type="text" name="dupa[poczatek]"
+        label for="end" End
+        input if="end" class="form-control" type="text" name="dupa[koniec]"
+
+        = object.label :end
+        = object.text_field :end,class: "form-control"
+        = object.label :description
+        = object.text_area :description,class: "form-control textarea-customized"
+        = object.hidden_field :user_id, {:value => "#{current_user.id}"}
+        = object.hidden_field :completed, {:value => false}
+        = object.hidden_field :todolist_id, {:value => nil}
 
       br
       .form-group.text-center
-          = object.submit "Send email", class: "btn btn-success btn-lg"
+        = object.submit "Send email", class: "btn btn-success btn-lg"
 
   = current_user.id
   br
