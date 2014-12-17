@@ -45,14 +45,11 @@ class Customization::SessionsController < Devise::SessionsController
     yield resource if block_given?
     #respond_with resource, location: after_sign_in_path_for(resource)
     if user_signed_in?
-      flash[:logged] = "Zalogowany"
       respond_to do |format|
         format.html { redirect_to root_path }
         format.js { render "sign_in_success.js.erb" }
       end
     end
-
-
   end
 
   # DELETE /resource/sign_out

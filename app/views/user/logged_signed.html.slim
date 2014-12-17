@@ -9,11 +9,15 @@
 
             br
 
-            .well.min-height-400
-                .font-15.margin-auto.text-center You have no tasks for today
-                .font-color-97d077.adding-new-task.text-center.font-40.font-bold 
-                    span.glyphicon.glyphicon-plus aria-hidden="true"
-                    |  Add Task
+            a.no-text-decoration href="#{add_task_get_path}" data-remote="true"
+                .well.min-height-400
+                    .font-15.margin-auto.text-center You have no tasks for today
+                    .font-color-97d077.adding-new-task.text-center.font-40.font-bold 
+                        span.glyphicon.glyphicon-plus aria-hidden="true"
+                        |  Add Task
+
+
+            = @today.inspect
         .col-xs-4
             .dropdown
                 button.btn.btn-primary.dropdown-toggle type="button" id="dropdown2" data-toggle="dropdown" aria-expanded="true"

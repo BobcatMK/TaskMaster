@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   # MAIN CONTROLLER
   root "main#home"
   get "/home",to: "main#home",as: :home
@@ -10,7 +9,13 @@ Rails.application.routes.draw do
 
   # USER CONTROLLER
   get "/application",to: "user#logged_signed",as: :logged_signed
+  get "/application/contact", to: "user#application_contact", as: :application_contact
+  get "/application/send_contact_form",to: "user#send_contact_form",as: :send_contact_form_get
+  post "/application/send_contact_form",to: "user#send_contact_form",as: :send_contact_form
 
+  # TASK CONTROLLER
+  get "application/add_task",to: "task#add_task_get", as: :add_task_get
+  post "application/create_task",to: "task#create_task",as: :create_task
 
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.

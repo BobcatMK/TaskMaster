@@ -1,0 +1,27 @@
+.container-680.well.m-t-50
+  .row
+    h2.text-center.m-b-30 New task
+    .disable-popup.font-bold.font-20 x
+  = form_for(@task,:url => url_for(:controller => "task",:action => "create_task"),:html => {:class => "width-80 margin-auto",role: "form"}) do |object|
+      .form-group
+          = label :poczatek
+          = text_field :poczatek,class: "form-control"
+          = label :koniec
+          = text_field :koniec,class: "form-control"
+          = object.label :description
+          = object.text_area :description,class: "form-control textarea-customized"
+          = object.hidden_field :user_id, {:value => "#{current_user.id}"}
+          = object.hidden_field :completed, {:value => false}
+          = object.hidden_field :todolist_id, {:value => nil}
+
+      br
+      .form-group.text-center
+          = object.submit "Send email", class: "btn btn-success btn-lg"
+
+  = current_user.id
+  br
+  = @today.inspect
+javascript:
+  $(".disable-popup").click(function() {
+    $(".add-task-get").remove();
+  });

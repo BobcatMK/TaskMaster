@@ -28,6 +28,7 @@ gem 'interactor' # lightweight framework extender for controller, it helps with 
 gem 'unicorn'
 gem 'rack-timeout'
 gem 'devise'
+gem "figaro"
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
@@ -43,6 +44,9 @@ gem 'autoprefixer-rails'
 gem 'font-awesome-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+
+# For contact form which will not save any data to base:
+gem "activerecord-tableless", "~> 1.0"
 
 # Use unicorn as the app server
 # gem 'unicorn'

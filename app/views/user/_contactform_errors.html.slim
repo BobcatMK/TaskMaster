@@ -1,0 +1,9 @@
+.contactform-errors
+    br
+    .alert.alert-danger.width-80.margin-auto role="alert"
+        - if @contactform.errors.count > 1
+            h4.m-b-20 = "There were #{@contactform.errors.count} errors when sending email:"
+        - else
+            h4.m-b-20 = "There was #{@contactform.errors.count} error when sending email:"
+        - @contactform.errors.full_messages.each do |message|
+            .m-b-10 = message
