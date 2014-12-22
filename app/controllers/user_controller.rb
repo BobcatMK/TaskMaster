@@ -2,9 +2,10 @@ class UserController < ApplicationController
     layout "application"
 
     def logged_signed
-        @full_calendar = Calendar.all
-        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
-        @tasks = Task.all
+        #@full_calendar = Calendar.all
+        #@today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+        #@tasks = Task.all
+        #@this_month = Calendar.all.where(:year => 2030,:month => 12)
         if current_user
             respond_to do |format|
                 format.html

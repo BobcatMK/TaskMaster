@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217144900) do
+ActiveRecord::Schema.define(version: 20141222164824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20141217144900) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "calendars_tasks", id: false, force: true do |t|
+    t.integer "task_id",     null: false
+    t.integer "calendar_id", null: false
+  end
+
+  add_index "calendars_tasks", ["calendar_id", "task_id"], name: "index_calendars_tasks_on_calendar_id_and_task_id", using: :btree
+  add_index "calendars_tasks", ["task_id", "calendar_id"], name: "index_calendars_tasks_on_task_id_and_calendar_id", using: :btree
 
   create_table "contacts", force: true do |t|
     t.string   "fullname"
@@ -39,7 +47,6 @@ ActiveRecord::Schema.define(version: 20141217144900) do
     t.text     "description"
     t.boolean  "completed"
     t.integer  "todolist_id"
-    t.integer  "calendar_id"
     t.integer  "user_id",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -47,7 +54,6 @@ ActiveRecord::Schema.define(version: 20141217144900) do
     t.datetime "end"
   end
 
-  add_index "tasks", ["calendar_id"], name: "index_tasks_on_calendar_id", using: :btree
   add_index "tasks", ["todolist_id"], name: "index_tasks_on_todolist_id", using: :btree
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 

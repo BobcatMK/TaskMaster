@@ -4,27 +4,61 @@
     .disable-popup.font-bold.font-20 x
   = form_for(@task,:url => url_for(:controller => "task",:action => "create_task"),:html => {:class => "width-80 margin-auto",role: "form"}) do |object|
       .form-group
+        .row.text-center
+          .col-xs-6
+            .droid-sans.font-17.font-bold Begin
+            a.btn.btn-primary.droid-sans.font-17.font-bold.dropdown-start-date.droc id="start" href="#{start_date_path}" data-remote="true"
+              = @today.first.year.to_s + "/" + @today.first.month.to_s + "/" + @today.first.day.to_s
+              span value="I have inner value"
 
-        label for="begin" Begin
-        input if="begin" class="form-control" type="text" name="dupa[poczatek]"
-        label for="end" End
-        input if="end" class="form-control" type="text" name="dupa[koniec]"
+          .col-xs-6
+            .droid-sans.font-17.font-bold End
+            a.btn.btn-primary.droid-sans.font-17.font-bold.dropdown-end-date.droc id="end" href="#{end_date_path}" data-remote="true"
+              = @today.first.year.to_s + "/" + @today.first.month.to_s + "/" + @today.first.day.to_s
+        .row.text-center
+          .col-xs-6
+            br
+            .droid-sans.font-17.font-bold Start time
+            select.text-center.width-100px
+              - (0..23).each do |item|
+                option.o-t-b value="#{item}:00" = item.to_s + ":00"
+                option.o-t-b value="#{item}:30" = item.to_s + ":30"
 
-        = object.label :end
-        = object.text_field :end,class: "form-control"
+          .col-xs-6
+            br
+            .droid-sans.font-17.font-bold End time
+            select.text-center.width-100px
+              - (0..23).each do |item|
+                option.o-t-e value="#{item}:00" = item.to_s + ":00"
+                option.o-t-e value="#{item}:30" = item.to_s + ":30"
+
+        br
+        .droid-sans.font-17.font-bold.text-center Assign this task to ToDo List:
+        br
+        .row.text-center
+          - if @todolists != nil
+            = object.select :todolist_id do
+              - @todolists.each do |list|
+                 = content_tag(:option,list.title,value: list.id)
+          - else
+            .droid-sans You haven't created any todo lists
+
+        br
+
         = object.label :description
         = object.text_area :description,class: "form-control textarea-customized"
+
         = object.hidden_field :user_id, {:value => "#{current_user.id}"}
         = object.hidden_field :completed, {:value => false}
-        = object.hidden_field :todolist_id, {:value => nil}
+        input type="hidden" name="begin[date]"
+        input type="hidden" name="end[date]"
+        input type="hidden" name="end[time]"
+        input type="hidden" name="begin[time]"
 
       br
       .form-group.text-center
-        = object.submit "Send email", class: "btn btn-success btn-lg"
+        = object.submit "Create task", class: "btn btn-success btn-lg"
 
-  = current_user.id
-  br
-  = @today.inspect
 javascript:
   $(".disable-popup").click(function() {
     $(".add-task-get").remove();

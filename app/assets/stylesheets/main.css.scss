@@ -141,6 +141,9 @@
 .width-56px {
     width: 56px;
 }
+.width-31px {
+    width: 31px;
+}
 .height-56px {
     height: 56px;
 }
@@ -157,6 +160,13 @@
 }
 .container-680 {
     width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.container-250 {
+    width: 250px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 15px;
@@ -184,6 +194,9 @@
     left: 90%;
     top: -65px;
     width: 10px;
+    cursor: pointer;
+}
+.cursor-pointer {
     cursor: pointer;
 }
 .clear-for-ajax {
@@ -235,6 +248,23 @@
     resize: none;
     height: 150px !important;
 }
+.bg-color-skyblue {
+    background-color: skyblue;
+}
+.border-1px-skyblue {
+    border: 1px solid skyblue;
+}
+.calendar-position {
+    position: absolute;
+    z-index: 1001;
+}
+.bg-color-whitesmoke {
+    background-color: whitesmoke;
+}
+.width-100px {
+    width: 100px;
+}
+
 
 @media (max-width: 310px) {
     #logo {

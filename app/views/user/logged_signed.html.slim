@@ -16,10 +16,6 @@
                         span.glyphicon.glyphicon-plus aria-hidden="true"
                         |  Add Task
 
-            = Time.zone
-            br
-            /= @tasks.last.start.strftime("%H %M")
-
         .col-xs-4
             .dropdown
                 button.btn.btn-primary.dropdown-toggle type="button" id="dropdown2" data-toggle="dropdown" aria-expanded="true"
@@ -81,4 +77,3 @@
                         td Health
                     tr
                         td Books to read
-

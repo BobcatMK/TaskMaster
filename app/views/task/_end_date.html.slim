@@ -1,0 +1,35 @@
+.container-250.ajax-end-date.calendar-position.droc
+    table.bg-color-whitesmoke.droc
+        thead.droc
+            tr.droc
+                th.text-center.border-1px-skyblue.droc
+                    a.droc href="#{change_year_backward_end_path(@today.first.year,@today.first.month)}" data-remote="true"
+                        span.glyphicon.glyphicon-chevron-left.droc
+                th.text-center.border-1px-skyblue.year-to-append.droc = @today.first.year
+                th.text-center.border-1px-skyblue.droc
+                    a.droc href="#{change_year_forward_end_path(@today.first.year,@today.first.month)}" data-remote="true"
+                        span.glyphicon.glyphicon-chevron-right.droc
+                th.border-1px-skyblue.text-center.droc
+                    a.droc href="#{change_month_backward_end_path(@today.first.year,@today.first.month)}" data-remote="true"
+                        span.glyphicon.glyphicon-chevron-left.droc
+                th.border-1px-skyblue.text-center.month-to-append.droc colspan="2" = @today_in_datetime.strftime("%b")
+                th.border-1px-skyblue.text-center.droc
+                    a.droc href="#{change_month_forward_end_path(@today.first.year,@today.first.month)}" data-remote="true"
+                        span.glyphicon.glyphicon-chevron-right.droc
+            tr.droc
+                th.border-1px-skyblue.droc Mon
+                th.border-1px-skyblue.droc Tue
+                th.border-1px-skyblue.droc Wed
+                th.border-1px-skyblue.droc Thu
+                th.border-1px-skyblue.droc Fri
+                th.border-1px-skyblue.droc Sat
+                th.border-1px-skyblue.droc Sun
+        tbody.text-center.droc
+            - @month_array.each do |inner_array|
+                tr.droc
+                    - inner_array.each do |dzien|
+                        - if dzien != "0"
+                            td.border-1px-skyblue.width-31px.cursor-pointer.will-close-on-click-end.droc = dzien.day
+                        - elsif dzien == "0"
+                            td.border-1px-skyblue.width-31px.droc
+    .hidden-month-in-number-end.droc style="display: none;" = @today_in_datetime.strftime("%-m")

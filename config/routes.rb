@@ -14,9 +14,21 @@ Rails.application.routes.draw do
   post "/application/send_contact_form",to: "user#send_contact_form",as: :send_contact_form
 
   # TASK CONTROLLER
+  get "/application/start_date",to: "task#start_date",as: :start_date
+  get "/application/end_date",to: "task#end_date",as: :end_date
   get "application/add_task",to: "task#add_task_get", as: :add_task_get
   post "application/create_task",to: "task#create_task",as: :create_task
 
+    # ROUTES FOR CALENDAR AJAX
+    get "application/change_year_forward/(:date_year)/(:date_month)", to: "task#change_year_forward", as: :change_year_forward
+    get "application/change_year_backward/(:date_year)/(:date_month)",to: "task#change_year_backward", as: :change_year_backward
+    get "application/change_month_forward/(:date_year)/(:date_month)",to: "task#change_month_forward", as: :change_month_forward
+    get "application/change_month_backward/(:date_year)/(:date_month)",to: "task#change_month_backward",as: :change_month_backward
+
+    get "application/change_year_forward_end/(:date_year)/(:date_month)", to: "task#change_year_forward_end", as: :change_year_forward_end
+    get "application/change_year_backward_end/(:date_year)/(:date_month)",to: "task#change_year_backward_end", as: :change_year_backward_end
+    get "application/change_month_forward_end/(:date_year)/(:date_month)",to: "task#change_month_forward_end", as: :change_month_forward_end
+    get "application/change_month_backward_end/(:date_year)/(:date_month)",to: "task#change_month_backward_end",as: :change_month_backward_end
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
