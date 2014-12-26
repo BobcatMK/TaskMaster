@@ -25,6 +25,9 @@ class TaskController < ApplicationController
 
     def create_task
 
+        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+        @todolists = Todolist.where(:user_id => current_user.id)
+
         @begin_date = params[:begin][:date]
         @end_date = params[:end][:date]
         @begin_time = params[:begin][:time]
@@ -34,8 +37,6 @@ class TaskController < ApplicationController
         @end_date_split = @end_date.split("/")
         @begin_time_split = @begin_time.split(":")
         @end_time_split = @end_time.split(":")
-
-        #puts [@begin_date_split,"++",@end_date_split,"++",@begin_time_split,"++",@end_time_split]
 
         @task = Task.new(
             :start => DateTime.new(@begin_date_split[0].to_i,@begin_date_split[1].to_i,@begin_date_split[2].to_i,@begin_time_split[0].to_i,@begin_time_split[1].to_i),
@@ -53,27 +54,32 @@ class TaskController < ApplicationController
             @find_starting_calendar = Calendar.where(:year => @starting_date[0],:month => @starting_date[1],:day => @starting_date[2])
             @find_ending_calendar = Calendar.where(:year => @ending_date[0],:month => @ending_date[1],:day => @ending_date[2])
 
-            @difference = (@find_ending_calendar.id - @find_starting_calendar.id) + 1
+            @difference = (@find_ending_calendar.first.id - @find_starting_calendar.first.id) + 1
 
             a = 0
             iteration_array = []
 
             while a < @difference do
-                iteration_array.push(@find_starting_calendar.id + a)
-                a++
+                iteration_array.push(@find_starting_calendar.first.id + a)
+                a += 1
             end
 
             iteration_array.each do |calendar_id|
                 @task.calendars << Calendar.find(calendar_id)
             end
 
-            redirect_to logged_signed_path
+            flash[:notice] = "You have added new task for #{@starting_date[0]}/#{@starting_date[1]}/#{@starting_date[2]}"
+
+            respond_to do |format|
+                format.js { render "task_save_success.js.erb" }
+            end
         else
-            redirect_to logged_signed_path
+            respond_to do |format|
+                format.js { render "task_save_fail.js.erb" }
+            end
         end
 
     end
-
 
 # BELOW ARE ACTIONS USED BY ADD_TASK_GET TO GENERATE PROPER START AND END DATES FOR NEWLY ADDED TASK
 

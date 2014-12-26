@@ -64,5 +64,15 @@ $(document).ready(function() {
         checker()      
     })
 
+    $("body").on("click","*",function() {
+        $(".flash-to-delete").remove();
+    });
+
+    // $('.prevent-double-submit').live('ajax:beforeSend', function(evt, xhr, settings){
+    //   // prevent double submit
+    //   $(':submit', this).click(function() {
+    //     return false;
+    //   });
+    // });
 });
 

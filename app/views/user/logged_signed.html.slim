@@ -1,6 +1,13 @@
 .container.droid-sans
     .row
         .col-xs-8
+            div.flash-to-delete
+                - if flash[:notice]
+                    - flash.each do |name,msg|
+                        .alert.alert-success.text-center role="alert" = msg
+
+            br
+
             .height-56px
                 .margin-auto.text-center
                     span.glyphicon.glyphicon-arrow-left.color-337ab7.font-50.m-r-30 aria-hidden="true"
@@ -15,6 +22,36 @@
                     .font-color-97d077.adding-new-task.text-center.font-40.font-bold 
                         span.glyphicon.glyphicon-plus aria-hidden="true"
                         |  Add Task
+
+            div
+                .well.min-height-400
+                    .row.text-center
+                        a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077.font-25 href="#{add_task_get_path}" data-remote="true"
+                            span.glyphicon.glyphicon-plus aria-hidden="true"
+                            |  Add Task
+                    .row
+                        .col-xs-12
+                            table.table.table-hover
+                                thead
+                                    tr
+                                        th.width-10.b-b-2px-337ab7 #
+                                        th.width-30.b-b-2px-337ab7 From
+                                        th.width-40.b-b-2px-337ab7 To
+                                        th.width-20.b-b-2px-337ab7 Completed
+
+                                tbody
+                                    - @nr = 1
+                                    - @sorted.each do |task|
+                                        tr.b-t-2px-337ab7
+                                            td rowspan="2" = @nr
+                                            td = "<b>#{task.start.strftime('%H:%M')}</b> - #{task.start.strftime('%-d %b %Y')}".html_safe
+                                            td = "<b>#{task.end.strftime('%H:%M')}</b> - #{task.end.strftime('%-d %b %Y')}".html_safe   
+                                            td = task.completed
+                                        tr.b-b-2px-337ab7
+                                            td colspan="3" = task.description
+
+                                        - @nr += 1
+
 
         .col-xs-4
             .dropdown
@@ -31,6 +68,7 @@
                             | Month View
                         a role="menuitem" tabindex="-1" href="#"
                             | Tasks View
+
             br
             br
             table.table.table-hover.table-customized.text-center
