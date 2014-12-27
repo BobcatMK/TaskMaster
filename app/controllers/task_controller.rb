@@ -1,6 +1,8 @@
 class TaskController < ApplicationController
 
     include TaskHelper
+    include ApplicationHelper
+
     before_action :set_current_date, only: [
         :change_year_forward,
         :change_year_backward,
@@ -25,7 +27,6 @@ class TaskController < ApplicationController
 
     def create_task
 
-        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
         @todolists = Todolist.where(:user_id => current_user.id)
 
         @begin_date = params[:begin][:date]
@@ -68,7 +69,11 @@ class TaskController < ApplicationController
                 @task.calendars << Calendar.find(calendar_id)
             end
 
-            flash[:notice] = "You have added new task for #{@starting_date[0]}/#{@starting_date[1]}/#{@starting_date[2]}"
+            #flash[:notice] = "You have added new task for #{@starting_date[0]}/#{@starting_date[1]}/#{@starting_date[2]}"
+
+            @flash_notice = "You have added new task for #{@starting_date[0]}/#{@starting_date[1]}/#{@starting_date[2]}"
+
+            main_page_initializer  # This method is placed in ApplicationHelper it initializes every object that is needed for new ajax generate page.
 
             respond_to do |format|
                 format.js { render "task_save_success.js.erb" }
@@ -80,6 +85,24 @@ class TaskController < ApplicationController
         end
 
     end
+
+    def task_completed
+        @task = Task.find(params[:task][:id])
+        @task.calendars.clear
+        @task.update(:completed => params[:task][:completed])
+
+        main_page_initializer
+
+        respond_to do |response|
+            response.js { render "task_completed_success.js.erb",:locals => {:@remove_this => @task.id} }
+            response.html { redirect_to logged_signed_path }
+        end
+    end
+
+
+
+
+
 
 # BELOW ARE ACTIONS USED BY ADD_TASK_GET TO GENERATE PROPER START AND END DATES FOR NEWLY ADDED TASK
 

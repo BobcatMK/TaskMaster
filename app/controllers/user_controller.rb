@@ -1,73 +1,12 @@
 class UserController < ApplicationController
 
+    include ApplicationHelper
+
     layout "application"
 
     def logged_signed
-        #@full_calendar = Calendar.all
-        #@today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
-        #@tasks = Task.all
-        #@this_month = Calendar.all.where(:year => 2030,:month => 12)
-        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
-        @tasks_for_today = @today.first.tasks
-        @sorted = @tasks_for_today.sort do |a,b| 
-            a.start <=> b.start
-        end
 
-        @counter = 0
-        @temp_sorter = []
-        @start_from = 0
-
-        while @counter < @sorted.length
-            @start_from += @temp_sorter.length
-            @temp_sorter.clear
-            @i = @start_from
-
-            while @sorted[@start_from].start == @sorted[@i].start
-                @temp_sorter.push(@sorted[@i])
-                if @i == @sorted.rindex(@sorted.last)
-                    break
-                end
-                @i += 1
-            end
-
-            @sorted.slice!(@start_from,@temp_sorter.length)
-
-            #@temp_sorter.sort { |a,b| a.end <=> b.end } This standard sorting algorithm is not working properly.
-
-            @checker = 0
-            @iterate = 0
-            @sorted_uniq = []
-
-            while @iterate <= (@temp_sorter.length - 1)
-              @temp_sorter.each do |item|
-                if @temp_sorter[@iterate].end > item.end
-                  @checker += 1
-                end
-              end
-              @sorted_uniq.push(@checker)
-              @iterate += 1
-              @checker = 0
-            end
-
-            @result = {}
-
-            @temp_sorter.each.with_index do |item,index|
-                @result[item] = @sorted_uniq[index]
-            end
-
-            @result.each_pair do |key,value|
-                @temp_holder = @temp_sorter.slice!(@temp_sorter.index(key))
-                @temp_sorter.insert(value,@temp_holder)
-            end
-
-            @temp_sorter = @temp_sorter.reverse
-
-            @temp_sorter.each do |item|
-                @sorted.insert(@start_from,item)
-            end
-            @counter += @temp_sorter.length
-        end
-
+        main_page_initializer # approximately 70 lines of code VERY IMPORTANT
 
         if current_user
             respond_to do |format|
@@ -97,6 +36,70 @@ class UserController < ApplicationController
             render "send_contact_form_success.js.erb"
         else
             render "send_contact_form_fail.js.erb"
+        end
+    end
+
+    def day_view_change_forward
+        @day_changer = params[:day_changer].to_i
+        @month_changer = params[:month_changer].to_i
+        @year_changer = params[:year_changer].to_i
+
+        @today = Calendar.where(:year => @year_changer,:month => @month_changer,:day => @day_changer + 1)
+
+        if @today.empty?
+            @month_changer += 1
+            @day_changer = 1
+            if @month_changer == 13
+                @year_changer += 1
+                @month_changer = 1
+                @day_changer = 1
+                if @year_changer == 2031
+                    @year_changer = 2030
+                    @month_changer = 12
+                    @day_changer = 31
+                end
+            end
+            @today = Calendar.where(:year => @year_changer,:month => @month_changer,:day => @day_changer)
+        end
+
+        day_view_change_initializer
+
+        respond_to do |respond|
+            respond.js { render "day_view_change_forward.js.erb" }
+        end
+    end
+
+    def day_view_change_backward
+        @day_changer = params[:day_changer].to_i
+        @month_changer = params[:month_changer].to_i
+        @year_changer = params[:year_changer].to_i
+
+        @today = Calendar.where(:year => @year_changer,:month => @month_changer,:day => @day_changer - 1)
+
+        if @today.empty?
+            @month_changer -= 1
+            begin
+                @day_changer = DateTime.new(@year_changer,@month_changer,-1).day
+            rescue
+                nil
+            end
+            if @month_changer == 0
+                @year_changer -= 1
+                @month_changer = 12
+                @day_changer = DateTime.new(@year_changer,@month_changer,-1).day
+                if @year_changer == 2013
+                    @year_changer = 2014
+                    @month_changer = 1
+                    @day_changer = 1
+                end
+            end
+            @today = Calendar.where(:year => @year_changer,:month => @month_changer,:day => @day_changer)
+        end
+
+        day_view_change_initializer
+
+        respond_to do |respond|
+            respond.js { render "day_view_change_backward.js.erb" }
         end
     end
 

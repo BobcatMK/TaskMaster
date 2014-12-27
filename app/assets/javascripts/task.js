@@ -116,4 +116,8 @@ $(document).on("page:change",function() {
         };
     });
 
+    $("body").on("click",".check-box-submit",function() {
+        $(this).closest("form").submit();
+    });
+
 });

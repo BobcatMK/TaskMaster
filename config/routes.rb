@@ -12,12 +12,15 @@ Rails.application.routes.draw do
   get "/application/contact", to: "user#application_contact", as: :application_contact
   get "/application/send_contact_form",to: "user#send_contact_form",as: :send_contact_form_get
   post "/application/send_contact_form",to: "user#send_contact_form",as: :send_contact_form
+  get "/application/day_view_change_forward/(:year_changer)/(:month_changer)/(:day_changer)",to: "user#day_view_change_forward",as: :day_view_change_forward
+  get "/application/day_view_change_backward/(:year_changer)/(:month_changer)/(:day_changer)",to: "user#day_view_change_backward",as: :day_view_change_backward
 
   # TASK CONTROLLER
   get "/application/start_date",to: "task#start_date",as: :start_date
   get "/application/end_date",to: "task#end_date",as: :end_date
   get "/application/add_task",to: "task#add_task_get", as: :add_task_get
   post "/application/create_task",to: "task#create_task",as: :create_task
+  patch "/application/task_completed",to: "task#task_completed",as: :task_completed
 
     # ROUTES FOR CALENDAR AJAX
     get "/application/change_year_forward/(:date_year)/(:date_month)", to: "task#change_year_forward", as: :change_year_forward
