@@ -17,7 +17,7 @@
                 .margin-auto.text-center
                     a href="#{day_view_change_backward_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
                         span.glyphicon.glyphicon-arrow-left.color-337ab7.font-50.m-r-30 aria-hidden="true"
-                    .btn.btn-primary.height-56px.vertical-align-top.font-17.p-t-14 
+                    .btn.btn-primary.height-56px.vertical-align-top.font-17.p-t-14.width-275px 
                         - if @today.first == @actually_today.first
                             | TODAY - #{@actually_today_datetime.strftime('%A, %-d %b %Y')}
                         - else
@@ -28,7 +28,7 @@
             br
 
             - if @tasks_for_today.empty?
-                a.no-text-decoration href="#{add_task_get_path}" data-remote="true"
+                a.no-text-decoration href="#{add_task_get_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
                     .well.min-height-400
                         .font-15.margin-auto.text-center You have no tasks for today
                         .font-color-97d077.adding-new-task.text-center.font-40.font-bold 
@@ -39,7 +39,7 @@
                 div
                     .well.min-height-400
                         .row.text-center
-                            a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077.font-25 href="#{add_task_get_path}" data-remote="true"
+                            a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077.font-25 href="#{add_task_get_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
                                 span.glyphicon.glyphicon-plus aria-hidden="true"
                                 |  Add Task
                         .row
@@ -49,7 +49,8 @@
                                         tr
                                             th.width-10.b-b-2px-337ab7 #
                                             th.width-30.b-b-2px-337ab7 From
-                                            th.width-40.b-b-2px-337ab7 To
+                                            th.width-30.b-b-2px-337ab7 To
+                                            th.width-10.b-b-2px-337ab7 Edit
                                             th.width-20.b-b-2px-337ab7.text-center Completed
 
                                     tbody
@@ -58,13 +59,19 @@
                                             tr.b-t-2px-337ab7 class="task-id-#{task.id}"
                                                 td rowspan="2" = @nr
                                                 td = "<b>#{task.start.strftime('%H:%M')}</b> - #{task.start.strftime('%-d %b %Y')}".html_safe
-                                                td = "<b>#{task.end.strftime('%H:%M')}</b> - #{task.end.strftime('%-d %b %Y')}".html_safe   
+                                                td = "<b>#{task.end.strftime('%H:%M')}</b> - #{task.end.strftime('%-d %b %Y')}".html_safe
+                                                td.text-center
+                                                    a href="#{task_edit_path(task.id,@today.first.year,@today.first.month,@today.first.day)}"
+                                                        span.glyphicon.glyphicon-pencil.font-color-97d077.font-20.m-r-30 aria-hidden="true"
                                                 td.text-center
                                                     = form_for(task,:url => task_completed_path,:html => {role: "from"},remote: true) do |object|
                                                         = object.check_box :completed,:class => "check-box-submit"
                                                         = object.hidden_field :id
+                                                        input type="hidden" name="date[year]" value="#{@today.first.year}"
+                                                        input type="hidden" name="date[month]" value="#{@today.first.month}"
+                                                        input type="hidden" name="date[day]" value="#{@today.first.day}"
                                             tr.b-b-2px-337ab7 class="task-id-#{task.id}"
-                                                td colspan="3" = task.description
+                                                td colspan="4" = task.description
 
                                             - @nr += 1
 

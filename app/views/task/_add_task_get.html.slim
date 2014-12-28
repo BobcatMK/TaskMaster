@@ -8,12 +8,12 @@
         .row.text-center
           .col-xs-6
             .droid-sans.font-17.font-bold Begin
-            a.btn.btn-primary.droid-sans.font-17.font-bold.dropdown-start-date.droc id="start" href="#{start_date_path}" data-remote="true"
+            a.btn.btn-primary.droid-sans.font-17.font-bold.dropdown-start-date.droc id="start" href="#{start_date_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
               = @today.first.year.to_s + "/" + @today.first.month.to_s + "/" + @today.first.day.to_s
 
           .col-xs-6
             .droid-sans.font-17.font-bold End
-            a.btn.btn-primary.droid-sans.font-17.font-bold.dropdown-end-date.droc id="end" href="#{end_date_path}" data-remote="true"
+            a.btn.btn-primary.droid-sans.font-17.font-bold.dropdown-end-date.droc id="end" href="#{end_date_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
               = @today.first.year.to_s + "/" + @today.first.month.to_s + "/" + @today.first.day.to_s
         .row.text-center
           .col-xs-6
@@ -56,6 +56,9 @@
         input type="hidden" name="end[date]"
         input type="hidden" name="end[time]"
         input type="hidden" name="begin[time]"
+        input type="hidden" name="date_year" value="#{@today.first.year}"
+        input type="hidden" name="date_month" value="#{@today.first.month}"
+        input type="hidden" name="date_day" value="#{@today.first.day}"
 
       br
       .form-group.text-center

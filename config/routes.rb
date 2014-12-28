@@ -16,11 +16,12 @@ Rails.application.routes.draw do
   get "/application/day_view_change_backward/(:year_changer)/(:month_changer)/(:day_changer)",to: "user#day_view_change_backward",as: :day_view_change_backward
 
   # TASK CONTROLLER
-  get "/application/start_date",to: "task#start_date",as: :start_date
-  get "/application/end_date",to: "task#end_date",as: :end_date
-  get "/application/add_task",to: "task#add_task_get", as: :add_task_get
+  get "/application/start_date/(:date_year)/(:date_month)/(:date_day)",to: "task#start_date",as: :start_date
+  get "/application/end_date/(:date_year)/(:date_month)/(:date_day)",to: "task#end_date",as: :end_date
+  get "/application/add_task/(:date_year)/(:date_month)/(:date_day)",to: "task#add_task_get", as: :add_task_get
   post "/application/create_task",to: "task#create_task",as: :create_task
   patch "/application/task_completed",to: "task#task_completed",as: :task_completed
+  post "/application/task_edit/(:task_id)/(:date_year)/(:date_month)/(:date_day)",to: "task#task_edit",as: :task_edit
 
     # ROUTES FOR CALENDAR AJAX
     get "/application/change_year_forward/(:date_year)/(:date_month)", to: "task#change_year_forward", as: :change_year_forward

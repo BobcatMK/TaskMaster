@@ -1,5 +1,6 @@
 class Customization::SessionsController < Devise::SessionsController
 # before_filter :configure_sign_in_params, only: [:create]
+  include ApplicationHelper
 
   # GET /resource/sign_in
   # def new
@@ -43,6 +44,8 @@ class Customization::SessionsController < Devise::SessionsController
     #set_flash_message(:notice, :signed_in) if is_flashing_format?
     sign_in(resource_name, resource)
     yield resource if block_given?
+    @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+    sorting_algorithm_and_initializer
     #respond_with resource, location: after_sign_in_path_for(resource)
     if user_signed_in?
       respond_to do |format|

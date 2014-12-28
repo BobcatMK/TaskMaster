@@ -6,7 +6,9 @@ class UserController < ApplicationController
 
     def logged_signed
 
-        main_page_initializer # approximately 70 lines of code VERY IMPORTANT
+        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+        
+        sorting_algorithm_and_initializer
 
         if current_user
             respond_to do |format|
@@ -62,7 +64,7 @@ class UserController < ApplicationController
             @today = Calendar.where(:year => @year_changer,:month => @month_changer,:day => @day_changer)
         end
 
-        day_view_change_initializer
+        sorting_algorithm_and_initializer
 
         respond_to do |respond|
             respond.js { render "day_view_change_forward.js.erb" }
@@ -96,7 +98,7 @@ class UserController < ApplicationController
             @today = Calendar.where(:year => @year_changer,:month => @month_changer,:day => @day_changer)
         end
 
-        day_view_change_initializer
+        sorting_algorithm_and_initializer
 
         respond_to do |respond|
             respond.js { render "day_view_change_backward.js.erb" }

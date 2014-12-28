@@ -13,10 +13,9 @@ class TaskController < ApplicationController
         :change_month_forward_end,
         :change_month_backward_end
     ]
-    
 
     def add_task_get
-        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+        @today = Calendar.where(:year => params[:date_year],:month => params[:date_month],:day => params[:date_day])
         @task = Task.new
         @todolists = Todolist.where(:user_id => current_user.id)
         respond_to do |format|
@@ -73,7 +72,8 @@ class TaskController < ApplicationController
 
             @flash_notice = "You have added new task for #{@starting_date[0]}/#{@starting_date[1]}/#{@starting_date[2]}"
 
-            main_page_initializer  # This method is placed in ApplicationHelper it initializes every object that is needed for new ajax generate page.
+            @today = Calendar.where(:year => params[:date_year],:month => params[:date_month],:day => params[:date_day])
+            sorting_algorithm_and_initializer
 
             respond_to do |format|
                 format.js { render "task_save_success.js.erb" }
@@ -91,7 +91,8 @@ class TaskController < ApplicationController
         @task.calendars.clear
         @task.update(:completed => params[:task][:completed])
 
-        main_page_initializer
+        @today = Calendar.where(:year => params[:date][:year],:month => params[:date][:month],:day => params[:date][:day])
+        sorting_algorithm_and_initializer
 
         respond_to do |response|
             response.js { render "task_completed_success.js.erb",:locals => {:@remove_this => @task.id} }
@@ -99,16 +100,16 @@ class TaskController < ApplicationController
         end
     end
 
-
-
-
-
+    def task_edit
+        @today = Calendar.where(:year => params[:date_year],:month => params[:date_month],:day => params[:date_day])
+        sorting_algorithm_and_initializer
+    end
 
 # BELOW ARE ACTIONS USED BY ADD_TASK_GET TO GENERATE PROPER START AND END DATES FOR NEWLY ADDED TASK
 
     # FIRSTLY YOU CAN SEE START DATE
     def start_date
-        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+        @today = Calendar.where(:year => params[:date_year],:month => params[:date_month],:day => params[:date_day])
         algorithm_for_date
 
         respond_to do |format|
@@ -191,7 +192,7 @@ class TaskController < ApplicationController
 
     # SECONDLY YOU CAN SEE END DATE
     def end_date
-        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+        @today = Calendar.where(:year => params[:date_year],:month => params[:date_month],:day => params[:date_day])
         algorithm_for_date
 
         respond_to do |format|
