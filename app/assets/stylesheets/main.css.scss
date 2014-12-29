@@ -240,7 +240,8 @@
     width: 10px;
     cursor: pointer;
 }
-.cursor-pointer {
+.cursor-pointer,
+.edit-submit {
     cursor: pointer;
 }
 .clear-for-ajax {
@@ -308,8 +309,10 @@
 .width-100px {
     width: 100px;
 }
-a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077:hover {
-    color: green;
+a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077:hover,
+.edit-submit:hover,
+.big-empty-new-task:hover > .adding-new-task {
+    color: green !important;
 }
 
 

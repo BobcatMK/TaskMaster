@@ -13,6 +13,7 @@ class UserController < ApplicationController
         if current_user
             respond_to do |format|
                 format.html
+                format.js { render "logged_signed.js.erb" }
             end
         elsif !current_user
             redirect_to root_path

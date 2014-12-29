@@ -55,8 +55,14 @@ $(document).on("page:change",function() {
     });
 
     $(document).ajaxComplete(function() {
-        var d = $("select > option.o-t-b:first-of-type").prop("selected",true);
-        var e = $("select > option.o-t-e:first-of-type").prop("selected",true);
+        var d = $("select > option.new-task-time-start:first-of-type").prop("selected",true);  // FOR NEW TASK
+        var e = $("select > option.new-task-time-end:first-of-type").prop("selected",true);  // FOR NEW TASK
+
+        var catchStartTime = $(".start-time-helper").text();
+        var catchEndTime = $(".end-time-helper").text();
+
+        $("select > option.edit-time-start[value='" + catchStartTime +"']").prop("selected",true);
+        $("select > option.edit-time-end[value='" + catchEndTime +"']").prop("selected",true);
 
         var for_form_start_date = $(".dropdown-start-date").text();   // Here we set input of start[date] and end[date] with ajax completed to have default value
         var for_form_end_date = $(".dropdown-end-date").text();
@@ -77,7 +83,6 @@ $(document).on("page:change",function() {
         var clickedSplit = clickedTagText.split(":");
         var endSplit = endTagText.split(":");
 
-        console.log(clickedTagText);
         $("input[name='begin[time]']").val(clickedTagText);
 
         var start_date = $("#start").text();
@@ -119,5 +124,7 @@ $(document).on("page:change",function() {
     $("body").on("click",".check-box-submit",function() {
         $(this).closest("form").submit();
     });
-
+    $("body").on("click",".edit-submit",function() {
+        $(this).parent().children("form:first-of-type").submit();
+    });
 });

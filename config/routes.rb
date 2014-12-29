@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   get "/application/add_task/(:date_year)/(:date_month)/(:date_day)",to: "task#add_task_get", as: :add_task_get
   post "/application/create_task",to: "task#create_task",as: :create_task
   patch "/application/task_completed",to: "task#task_completed",as: :task_completed
-  post "/application/task_edit/(:task_id)/(:date_year)/(:date_month)/(:date_day)",to: "task#task_edit",as: :task_edit
+  patch "/application/task_edit_get",to: "task#task_edit_get",as: :task_edit_get
+  patch "/application/edit_task",to: "task#edit_task",as: :edit_task
 
     # ROUTES FOR CALENDAR AJAX
     get "/application/change_year_forward/(:date_year)/(:date_month)", to: "task#change_year_forward", as: :change_year_forward
@@ -33,6 +34,10 @@ Rails.application.routes.draw do
     get "/application/change_year_backward_end/(:date_year)/(:date_month)",to: "task#change_year_backward_end", as: :change_year_backward_end
     get "/application/change_month_forward_end/(:date_year)/(:date_month)",to: "task#change_month_forward_end", as: :change_month_forward_end
     get "/application/change_month_backward_end/(:date_year)/(:date_month)",to: "task#change_month_backward_end",as: :change_month_backward_end
+
+  # WEEK CONTROLLER
+  get "application/week_view",to: "week#week_view",as: :week_view
+  
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

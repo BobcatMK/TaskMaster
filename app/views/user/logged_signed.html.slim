@@ -29,7 +29,7 @@
 
             - if @tasks_for_today.empty?
                 a.no-text-decoration href="#{add_task_get_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
-                    .well.min-height-400
+                    .well.min-height-400.big-empty-new-task
                         .font-15.margin-auto.text-center You have no tasks for today
                         .font-color-97d077.adding-new-task.text-center.font-40.font-bold 
                             span.glyphicon.glyphicon-plus aria-hidden="true"
@@ -61,10 +61,15 @@
                                                 td = "<b>#{task.start.strftime('%H:%M')}</b> - #{task.start.strftime('%-d %b %Y')}".html_safe
                                                 td = "<b>#{task.end.strftime('%H:%M')}</b> - #{task.end.strftime('%-d %b %Y')}".html_safe
                                                 td.text-center
-                                                    a href="#{task_edit_path(task.id,@today.first.year,@today.first.month,@today.first.day)}"
-                                                        span.glyphicon.glyphicon-pencil.font-color-97d077.font-20.m-r-30 aria-hidden="true"
+                                                    = form_for(task,:url => task_edit_get_path,:html => {role: "form"},remote: true) do |object|
+                                                        input type="hidden" name="date_year" value="#{@today.first.year}"
+                                                        input type="hidden" name="date_month" value="#{@today.first.month}"
+                                                        input type="hidden" name="date_day" value="#{@today.first.day}"
+                                                        input type="hidden" name="task[id]" value="#{task.id}"
+                                                        
+                                                    span.glyphicon.glyphicon-pencil.font-color-97d077.font-20.m-r-30.edit-submit aria-hidden="true"
                                                 td.text-center
-                                                    = form_for(task,:url => task_completed_path,:html => {role: "from"},remote: true) do |object|
+                                                    = form_for(task,:url => task_completed_path,:html => {role: "form"},remote: true) do |object|
                                                         = object.check_box :completed,:class => "check-box-submit"
                                                         = object.hidden_field :id
                                                         input type="hidden" name="date[year]" value="#{@today.first.year}"
@@ -83,9 +88,9 @@
                     span.caret.m-l-5
                 ul.dropdown-menu.dropdown2 role="menu" aria-labelledby="dropdown2"
                     li.text-center role="presentation"
-                        a role="menuitem" tabindex="-1" href="#"
+                        a role="menuitem" tabindex="-1" href="#{logged_signed_path}" data-remote="true"
                             | Day View
-                        a role="menuitem" tabindex="-1" href="#"
+                        a role="menuitem" tabindex="-1" href="#{week_view_path}" data-remote="true"
                             | Week View
                         a role="menuitem" tabindex="-1" href="#"
                             | Month View
