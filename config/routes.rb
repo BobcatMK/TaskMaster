@@ -46,6 +46,13 @@ Rails.application.routes.draw do
   get "/application/week_backward/(:calendar_id)",to: "week#week_backward",as: :week_backward
   get "/application/week_forward/(:calendar_id)",to: "week#week_forward",as: :week_forward
 
+  # MONTH CONTROLLER
+  get "/application/month_view",to: "month#month_view",as: :month_view
+  get "/application/month_task_get/(:date_year)/(:date_month)/(:date_day)",to: "month#month_task_get",as: :month_task_get
+  post "/application/create_task_month_view",to: "month#create_task_month_view",as: :create_task_month_view
+  get "/application/month_backward/(:date_year)/(:date_month)",to: "month#month_backward",as: :month_backward
+  get "/application/month_forward/(:date_year)/(:date_month)",to: "month#month_forward",as: :month_forward
+
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

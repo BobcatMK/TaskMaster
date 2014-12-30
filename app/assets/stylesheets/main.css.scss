@@ -23,6 +23,9 @@
 .body {
     min-height: 100%;
 }
+.hover-green:hover > * {
+    color: green !important;
+}
 .m-t-40 {
     margin-top: 40px;
 }
@@ -98,12 +101,21 @@
 .p-t-14 {
     padding-top: 14px;
 }
+.p-0 {
+    padding: 0px !important;
+}
+.p-l-3 {
+    padding-left: 3px !important;
+}
 .font-30-bold {
     font-size: 30px;
     font-weight: bold;
 }
 .font-10 {
     font-size: 10px;
+}
+.font-12 {
+    font-size: 12px;
 }
 .font-15 {
     font-size: 15px;
@@ -159,6 +171,9 @@
 .width-10 {
     width: 10%;
 }
+.width-14 {
+    width: 14%;
+}
 .width-15 {
     width: 15%;
 }
@@ -186,6 +201,9 @@
 .height-60px {
     height: 60px;
 }
+.height-70px {
+    height: 70px;
+}
 .vertical-align-top {
     vertical-align: top;
 }
@@ -203,6 +221,12 @@
 }
 .b-t-2px-337ab7 {
     border-top: 2px solid #337ab7 !important;
+}
+.b-2px-97d077 {
+    border: 2px solid #97d077 !important;
+}
+.b-1px-337ab7 {
+    border: 1px solid #337ab7 !important;
 }
 .container-480 {
     width: 480px;

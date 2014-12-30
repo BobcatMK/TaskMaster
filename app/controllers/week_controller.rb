@@ -193,11 +193,6 @@ class WeekController < ApplicationController
         date = Calendar.where(year: params[:date][:year],month: params[:date][:month],day: params[:date][:day]).first
         week_view_calendar(date)
 
-        puts "DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
-        puts date.inspect
-        puts @particular_week.inspect
-        puts "DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
-
         respond_to do |response|
             response.js { render "task_completed_week_view.js.erb" }
             response.html { redirect_to logged_signed_path }
