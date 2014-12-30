@@ -70,8 +70,10 @@ class Customization::RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
+
     @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
     sorting_algorithm_and_initializer
+
     resource_saved = resource.save
     yield resource if block_given?
     if resource_saved

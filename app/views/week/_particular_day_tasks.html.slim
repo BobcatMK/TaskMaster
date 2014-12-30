@@ -1,0 +1,32 @@
+tr.particular-day-tasks
+    td.width-10 #
+    td.width-30 From
+    td.width-30 To
+    td.width-10 Edit
+    td.width-20.text-center Completed
+
+- @nr = 1
+- @sorted.each do |task|
+    tr.particular-day-tasks class="task-id-#{task.id}"
+        td rowspan="2" = @nr
+        td = "<b>#{task.start.strftime('%H:%M')}</b> - #{task.start.strftime('%-d %b %Y')}".html_safe
+        td = "<b>#{task.end.strftime('%H:%M')}</b> - #{task.end.strftime('%-d %b %Y')}".html_safe
+        td.text-center
+            = form_for(task,:url => task_edit_get_week_view_path,:html => {role: "form"},remote: true) do |object|
+                input type="hidden" name="date_year" value="#{@today.first.year}"
+                input type="hidden" name="date_month" value="#{@today.first.month}"
+                input type="hidden" name="date_day" value="#{@today.first.day}"
+                input type="hidden" name="task[id]" value="#{task.id}"
+                
+            span.glyphicon.glyphicon-pencil.font-color-97d077.font-20.m-r-30.edit-submit aria-hidden="true"
+        td.text-center
+            = form_for(task,:url => task_completed_week_view_path,:html => {role: "form"},remote: true) do |object|
+                = object.check_box :completed,:class => "check-box-submit"
+                = object.hidden_field :id
+                input type="hidden" name="date[year]" value="#{@today.first.year}"
+                input type="hidden" name="date[month]" value="#{@today.first.month}"
+                input type="hidden" name="date[day]" value="#{@today.first.day}"
+    tr.particular-day-tasks class="task-id-#{task.id}"
+        td colspan="4" = task.description
+
+    - @nr += 1

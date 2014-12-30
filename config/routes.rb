@@ -36,8 +36,16 @@ Rails.application.routes.draw do
     get "/application/change_month_backward_end/(:date_year)/(:date_month)",to: "task#change_month_backward_end",as: :change_month_backward_end
 
   # WEEK CONTROLLER
-  get "application/week_view",to: "week#week_view",as: :week_view
-  
+  get "/application/week_view",to: "week#week_view",as: :week_view
+  get "/application/add_task_week_view/(:date_year)/(:date_month)/(:date_day)",to: "week#add_task_week_view", as: :add_task_week_view
+  post "/application/create_task_week_view",to: "week#create_task_week_view",as: :create_task_week_view
+  get "/application/particular_day_tasks/(:year)/(:month)/(:day)",to: "week#particular_day_tasks",as: :particular_day_tasks
+  patch "/application/task_edit_get_week_view",to: "week#task_edit_get_week_view",as: :task_edit_get_week_view
+  patch "/application/edit_task_week_view",to: "week#edit_task_week_view",as: :edit_task_week_view
+  patch "/application/task_completed_week_view",to: "week#task_completed_week_view",as: :task_completed_week_view
+  get "/application/week_backward/(:calendar_id)",to: "week#week_backward",as: :week_backward
+  get "/application/week_forward/(:calendar_id)",to: "week#week_forward",as: :week_forward
+
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

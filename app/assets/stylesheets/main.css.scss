@@ -102,6 +102,9 @@
     font-size: 30px;
     font-weight: bold;
 }
+.font-10 {
+    font-size: 10px;
+}
 .font-15 {
     font-size: 15px;
 }
@@ -180,8 +183,14 @@
 .height-56px {
     height: 56px;
 }
+.height-60px {
+    height: 60px;
+}
 .vertical-align-top {
     vertical-align: top;
+}
+.vertical-align-middle {
+    vertical-align: middle !important;
 }
 .b-b-2px-green {
     border-bottom: 2px solid green !important;

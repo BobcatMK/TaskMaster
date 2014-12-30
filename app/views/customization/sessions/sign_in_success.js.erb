@@ -6,4 +6,4 @@ $("meta[name='csrf-token']").remove();
 $("meta[name='csrf-param']").remove();
 $("head").append("<meta name='csrf-token' content='<%= form_authenticity_token %>'>");
 $("head").append("<meta name='csrf-param' content='<%= request_forgery_protection_token %>'>");
-$(".clear-for-ajax").append("<%= j(render template: 'user/logged_signed',locals: {:@full_calendar => Calendar.all}) %>");
+$(".append-here").append("<%= j(render template: 'user/logged_signed.html.slim') %>");
