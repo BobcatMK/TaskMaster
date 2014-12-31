@@ -3,7 +3,7 @@
     h2.text-center.m-b-30 New task
     .disable-popup.font-bold.font-20 x
 
-  = form_for(@task,:url => create_task_path,:html => {:class => "width-80 margin-auto prevent-double-submit", role: "form"},remote: true) do |object|
+  = form_for(@task,:url => task_view_create_path,:html => {:class => "width-80 margin-auto prevent-double-submit", role: "form"},remote: true) do |object|
       .form-group
         .row.text-center
           .col-xs-6

@@ -1,1 +1,2 @@
-$("body").append("<div class='ajax-login pop-up pop-up-background z-index-high'><%= j(render 'customization/sessions/new') %></div>")
+$("body").append("<div class='ajax-login pop-up pop-up-background z-index-high'><%= j(render 'customization/sessions/new') %></div>");
+$(".flexible-margin-pop-up").css("margin-top",getScrollTop() + 50);

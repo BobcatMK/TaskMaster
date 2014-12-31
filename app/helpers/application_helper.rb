@@ -3,7 +3,7 @@ module ApplicationHelper
     def sorting_algorithm_and_initializer
         @actually_today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
 
-        @tasks_for_today = @today.first.tasks
+        @tasks_for_today = @today.first.tasks.where(:user_id => current_user.id)
 
         @today_datetime = DateTime.new(@today.first.year,@today.first.month,@today.first.day)
         @actually_today_datetime = DateTime.new(@actually_today.first.year,@actually_today.first.month,@actually_today.first.day)

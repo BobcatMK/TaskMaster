@@ -1,36 +1,38 @@
-.container-680.well.m-t-50
+.container-680.well.m-t-50.flexible-margin-pop-up
   .row
-    h2.text-center.m-b-30 New task
+    h2.text-center.m-b-30 Edit task
     .disable-popup.font-bold.font-20 x
 
-  = form_for(@task,:url => create_task_week_view_path,:html => {:class => "width-80 margin-auto prevent-double-submit", role: "form"},remote: true) do |object|
+  .start-time-helper style="display:none;" = @task_start_time
+  .end-time-helper style="display:none;" = @task_end_time
+  = form_for(@task,:url => task_view_edit_path,:html => {:class => "width-80 margin-auto prevent-double-submit", role: "form"},remote: true) do |object|
       .form-group
         .row.text-center
           .col-xs-6
             .droid-sans.font-17.font-bold Begin
-            a.btn.btn-primary.droid-sans.font-17.font-bold.dropdown-start-date.droc id="start" href="#{start_date_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
-              = @today.first.year.to_s + "/" + @today.first.month.to_s + "/" + @today.first.day.to_s
+            a.btn.btn-primary.droid-sans.font-17.font-bold.dropdown-start-date.droc id="start" href="#{start_date_path(@task_start_year,@task_start_month,@task_start_day)}" data-remote="true"
+              = @task_start_year.to_s + "/" + @task_start_month.to_s + "/" + @task_start_day.to_s
 
           .col-xs-6
             .droid-sans.font-17.font-bold End
-            a.btn.btn-primary.droid-sans.font-17.font-bold.dropdown-end-date.droc id="end" href="#{end_date_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
-              = @today.first.year.to_s + "/" + @today.first.month.to_s + "/" + @today.first.day.to_s
+            a.btn.btn-primary.droid-sans.font-17.font-bold.dropdown-end-date.droc id="end" href="#{end_date_path(@task_end_year,@task_end_month,@task_end_day)}" data-remote="true"
+              = @task_end_year.to_s + "/" + @task_end_month.to_s + "/" + @task_end_day.to_s
         .row.text-center
           .col-xs-6
             br
             .droid-sans.font-17.font-bold Start time
             select.text-center.width-100px
               - (0..23).each do |item|
-                option.o-t-b.new-task-time-start value="#{item}:00" = item.to_s + ":00"
-                option.o-t-b.new-task-time-start value="#{item}:30" = item.to_s + ":30"
+                option.o-t-b.edit-time-start value="#{item}:00" = item.to_s + ":00"
+                option.o-t-b.edit-time-start value="#{item}:30" = item.to_s + ":30"
 
           .col-xs-6
             br
             .droid-sans.font-17.font-bold End time
             select.text-center.width-100px
               - (0..23).each do |item|
-                option.o-t-e.new-task-time-end value="#{item}:00" = item.to_s + ":00"
-                option.o-t-e.new-task-time-end value="#{item}:30" = item.to_s + ":30"
+                option.o-t-e.edit-time-end value="#{item}:00" = item.to_s + ":00"
+                option.o-t-e.edit-time-end value="#{item}:30" = item.to_s + ":30"
 
         br
         .droid-sans.font-17.font-bold.text-center Assign this task to ToDo List:
@@ -52,6 +54,7 @@
 
         = object.hidden_field :user_id, {:value => "#{current_user.id}"}
         = object.hidden_field :completed, {:value => false}
+        = object.hidden_field :id
         input type="hidden" name="begin[date]"
         input type="hidden" name="end[date]"
         input type="hidden" name="end[time]"
@@ -62,9 +65,9 @@
 
       br
       .form-group.text-center
-        = object.submit "Create task", class: "btn btn-success btn-lg",:data => {:disable_with => "Saving..."}
+        = object.submit "Edit task", class: "btn btn-success btn-lg",:data => {:disable_with => "Saving..."}
 
 javascript:
   $(".disable-popup").click(function() {
-    $(".month_view_create_task_get").remove();
+    $(".task-edit-get").remove();
   });

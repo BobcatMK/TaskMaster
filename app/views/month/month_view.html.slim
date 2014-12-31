@@ -44,12 +44,12 @@
                                                         div.p-l-3 = days.day
                                                         div.text-center
                                                             a.text-center.font-12 href="#{day_view_change_forward_path(days.year,days.month,days.day - 1)}" data-remote="true" 
-                                                                - if days.tasks.length == 0
+                                                                - if days.tasks.where(:user_id => current_user.id).length == 0
                                                                     | No tasks
-                                                                - elsif days.tasks.length == 1
+                                                                - elsif days.tasks.where(:user_id => current_user.id).length == 1
                                                                     | 1 task
                                                                 - else
-                                                                    = days.tasks.length.to_s + " tasks"
+                                                                    = days.tasks.where(:user_id => current_user.id).length.to_s + " tasks"
                                                         div.text-center.hover-green
                                                             a.margin-auto.no-text-decoration.font-color-97d077.font-12 href="#{month_task_get_path(days.year,days.month,days.day)}" data-remote="true"
                                                                 span.glyphicon.glyphicon-plus aria-hidden="true"
@@ -68,7 +68,7 @@
                             | Week View
                         a role="menuitem" tabindex="-1" href="#{month_view_path}" data-remote="true"
                             | Month View
-                        a role="menuitem" tabindex="-1" href="#"
+                        a role="menuitem" tabindex="-1" href="#{task_view_path}" data-remote="true"
                             | Tasks View
 
             br

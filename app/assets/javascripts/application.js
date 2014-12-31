@@ -15,3 +15,27 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+function getScrollTop() {
+    var scrollTop;
+    if(typeof(window.pageYOffset) == 'number')
+    {
+        // DOM compliant, IE9+
+        scrollTop = window.pageYOffset;
+    }
+    else
+    {
+        // IE6-8 workaround
+        if(document.body && document.body.scrollTop)
+        {
+            // IE quirks mode
+            scrollTop = document.body.scrollTop;
+        }
+        else if(document.documentElement && document.documentElement.scrollTop)
+        {
+            // IE6+ standards compliant mode
+            scrollTop = document.documentElement.scrollTop;
+        }
+    }
+    return scrollTop;
+}

@@ -39,12 +39,12 @@
                                                     = @particular_week_datetime[index].strftime("%-d %b, %A")
                                             td.width-40.vertical-align-middle class="change-me-append-here-#{item.id}" colspan="2"
                                                 
-                                                - if item.tasks.length == 1
+                                                - if item.tasks.where(:user_id => current_user.id).length == 1
                                                     a class="change-me-anchor-#{item.id} anchor-week-view" href="#{particular_day_tasks_path(item.year,item.month,item.day)}" data-remote="true" 1 task
-                                                - elsif item.tasks.length == 0
+                                                - elsif item.tasks.where(:user_id => current_user.id).length == 0
                                                     a class="change-me-anchor-#{item.id} anchor-week-view" href="#{add_task_week_view_path(item.year,item.month,item.day)}" data-remote="true" No tasks for this day
                                                 - else
-                                                    a class="change-me-anchor-#{item.id} anchor-week-view" href="#{particular_day_tasks_path(item.year,item.month,item.day)}" data-remote="true" = item.tasks.length.to_s + " tasks"
+                                                    a class="change-me-anchor-#{item.id} anchor-week-view" href="#{particular_day_tasks_path(item.year,item.month,item.day)}" data-remote="true" = item.tasks.where(:user_id => current_user.id).length.to_s + " tasks"
                                             td.width-20.vertical-align-middle
                                                 a.margin-auto.text-center.no-text-decoration.font-color-97d077.font-15 href="#{add_task_week_view_path(item.year,item.month,item.day)}" data-remote="true"
                                                     span.glyphicon.glyphicon-plus aria-hidden="true"
@@ -63,7 +63,7 @@
                             | Week View
                         a role="menuitem" tabindex="-1" href="#{month_view_path}" data-remote="true"
                             | Month View
-                        a role="menuitem" tabindex="-1" href="#"
+                        a role="menuitem" tabindex="-1" href="#{task_view_path}" data-remote="true"
                             | Tasks View
 
             br
