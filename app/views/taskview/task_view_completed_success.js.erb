@@ -1,2 +1,9 @@
 $(".append-here").empty();
-$(".append-here").append("<%= j(render :template => 'taskview/task_view.html.slim') %>");
+
+<% if @go_back_to == "task_view" %>
+    $(".append-here").append("<%= j(render :template => 'taskview/task_view.html.slim',:locals => {:@action => 'task_view'}) %>");
+<% elsif @go_back_to == "task_view_unassigned" %>
+    $(".append-here").append("<%= j(render :template => 'taskview/task_view_unassigned.html.slim',:locals => {:@action => 'task_view_unassigned'}) %>");
+<% elsif @go_back_to == "task_view_all" %> 
+    $(".append-here").append("<%= j(render :template => 'taskview/task_view_all.html.slim',:locals => {:@action => 'task_view_all'}) %>");
+<% end %>

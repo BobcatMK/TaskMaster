@@ -84,7 +84,7 @@
     margin-bottom: 60px;
 }
 .m-b-0 {
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
 }
 .m-t-150 {
     margin-top: 150px !important;
@@ -166,6 +166,9 @@
 .width-30 {
     width: 30%;
 }
+.width-32 {
+    width: 32%;
+}
 .width-40 {
     width: 40%;
 }
@@ -183,6 +186,9 @@
 }
 .width-15 {
     width: 15%;
+}
+.width-16 {
+    width: 16%;
 }
 .width-65 {
     width: 65%;
@@ -369,7 +375,13 @@ a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077:hover,
 .big-empty-new-task:hover > .adding-new-task {
     color: green !important;
 }
-
+table {
+    table-layout: fixed !important;
+    word-wrap: break-word !important;
+}
+.line-height-3 {
+    line-height: 3;
+}
 
 @media (max-width: 310px) {
     #logo {

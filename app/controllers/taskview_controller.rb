@@ -2,31 +2,13 @@ class TaskviewController < ApplicationController
     
     include TaskHelper
     include ApplicationHelper
+    include TaskviewHelper
 
     def task_view
 
-        @sort_by = params[:sort_by]
-        @sort_by ||= "start"
+        taskview_initializer
 
-        @all_tasks_assigned = Task.where(:user_id => current_user.id,:completed => false)
-
-        @all_calendars = {}
-
-        @all_tasks_assigned.each do |item|
-            if @sort_by == "start"
-                date_helper = DateTime.new(item.start.year,item.start.month,item.start.day)
-            elsif @sort_by == "end"
-                date_helper = DateTime.new(item.end.year,item.end.month,item.end.day)
-            end
-            if @all_calendars.has_key?(date_helper) == false
-                @all_calendars[date_helper] = []
-            end
-            @all_calendars[date_helper].push(item)
-        end
-
-        @all_calendars = Hash[@all_calendars.sort]
-
-        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+        @action ||= params[:action]
 
         respond_to do |format|
             format.js { render "task_view.js.erb" }
@@ -65,6 +47,8 @@ class TaskviewController < ApplicationController
         @begin_time = params[:begin][:time]
         @end_time = params[:end][:time]
 
+        @go_back_to = params[:controller_action_forward]
+
         @begin_date_split = @begin_date.split("/")
         @end_date_split = @end_date.split("/")
         @begin_time_split = @begin_time.split(":")
@@ -77,7 +61,8 @@ class TaskviewController < ApplicationController
             :end => DateTime.new(@end_date_split[0].to_i,@end_date_split[1].to_i,@end_date_split[2].to_i,@end_time_split[0].to_i,@end_time_split[1].to_i),
             :description => params[:task][:description],
             :todolist_id => params[:task][:todolist_id],
-            :user_id => params[:task][:user_id])
+            :user_id => params[:task][:user_id],
+            :completed => false)
 
             @starting_date = [@task.start.year,@task.start.month,@task.start.day]
             @ending_date = [@task.end.year,@task.end.month,@task.end.day]
@@ -103,21 +88,15 @@ class TaskviewController < ApplicationController
 
             @flash_notice = "You have edited task. It starts at #{@starting_date[0]}/#{@starting_date[1]}/#{@starting_date[2]} and ends at #{@ending_date[0]}/#{@ending_date[1]}/#{@ending_date[2]}"
 
-            @all_tasks_assigned = Task.where(:user_id => current_user.id,:completed => false)
-
-            @all_calendars = {}
-
-            @all_tasks_assigned.each do |item|
-                date_helper = DateTime.new(item.start.year,item.start.month,item.start.day)
-                if @all_calendars.has_key?(date_helper) == false
-                    @all_calendars[date_helper] = []
-                end
-                @all_calendars[date_helper].push(item)
+            if @go_back_to == "task_view"
+                taskview_initializer
+            elsif @go_back_to == "task_view_unassigned"
+                @all_tasks_assigned = Task.where(:user_id => current_user.id,:completed => true)
+                taskview_initializer
+            elsif @go_back_to == "task_view_all"
+                @all_tasks_assigned = Task.where(:user_id => current_user.id)
+                taskview_initializer
             end
-
-            @all_calendars = Hash[@all_calendars.sort]
-
-            @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
 
             respond_to do |format|
                 format.js { render "task_view_edit_success.js.erb" }
@@ -133,6 +112,9 @@ class TaskviewController < ApplicationController
         @today = Calendar.where(:year => params[:date_year],:month => params[:date_month],:day => params[:date_day])
         @task = Task.new
         @todolists = Todolist.where(:user_id => current_user.id)
+
+        @action = params[:controller_action]
+
         respond_to do |format|
             format.js { render "task_view_create_get.js.erb" }
             format.html { redirect_to logged_signed_path }
@@ -151,6 +133,8 @@ class TaskviewController < ApplicationController
         @end_date_split = @end_date.split("/")
         @begin_time_split = @begin_time.split(":")
         @end_time_split = @end_time.split(":")
+
+        @go_back_to = params[:controller_action_forward]
 
         @task = Task.new(
             :start => DateTime.new(@begin_date_split[0].to_i,@begin_date_split[1].to_i,@begin_date_split[2].to_i,@begin_time_split[0].to_i,@begin_time_split[1].to_i),
@@ -184,21 +168,15 @@ class TaskviewController < ApplicationController
 
             @flash_notice = "You have added new task for #{@starting_date[0]}/#{@starting_date[1]}/#{@starting_date[2]}"
 
-            @all_tasks_assigned = Task.where(:user_id => current_user.id,:completed => false)
-
-            @all_calendars = {}
-
-            @all_tasks_assigned.each do |item|
-                date_helper = DateTime.new(item.start.year,item.start.month,item.start.day)
-                if @all_calendars.has_key?(date_helper) == false
-                    @all_calendars[date_helper] = []
-                end
-                @all_calendars[date_helper].push(item)
+            if @go_back_to == "task_view"
+                taskview_initializer
+            elsif @go_back_to == "task_view_unassigned"
+                @all_tasks_assigned = Task.where(:user_id => current_user.id,:completed => true)
+                taskview_initializer
+            elsif @go_back_to == "task_view_all"
+                @all_tasks_assigned = Task.where(:user_id => current_user.id)
+                taskview_initializer
             end
-
-            @all_calendars = Hash[@all_calendars.sort]
-
-            @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
 
             respond_to do |format|
                 format.js { render "task_view_create.js.erb" }
@@ -215,25 +193,45 @@ class TaskviewController < ApplicationController
         @task.calendars.clear
         @task.update(:completed => params[:task][:completed])
 
-        @all_tasks_assigned = Task.where(:user_id => current_user.id,:completed => false)
+        @go_back_to = params[:controller_action]
 
-        @all_calendars = {}
-
-        @all_tasks_assigned.each do |item|
-            date_helper = DateTime.new(item.start.year,item.start.month,item.start.day)
-            if @all_calendars.has_key?(date_helper) == false
-                @all_calendars[date_helper] = []
-            end
-            @all_calendars[date_helper].push(item)
+        if @go_back_to == "task_view"
+            taskview_initializer
+        elsif @go_back_to == "task_view_unassigned"
+            @all_tasks_assigned = Task.where(:user_id => current_user.id,:completed => true)
+            taskview_initializer
+        elsif @go_back_to == "task_view_all"
+            @all_tasks_assigned = Task.where(:user_id => current_user.id)
+            taskview_initializer
         end
-
-        @all_calendars = Hash[@all_calendars.sort]
-
-        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
 
         respond_to do |response|
             response.js { render "task_view_completed_success.js.erb",:locals => {:@remove_this => @task.id} }
             response.html { redirect_to logged_signed_path }
+        end
+    end
+
+    def task_view_unassigned
+        @all_tasks_assigned = Task.where(:user_id => current_user.id,:completed => true)
+        taskview_initializer
+
+        @action ||= params[:action]
+
+        respond_to do |format|
+            format.js { render "task_view_unassigned.js.erb" }
+            format.js { render logged_signed_path }
+        end
+    end
+
+    def task_view_all
+        @all_tasks_assigned = Task.where(:user_id => current_user.id)
+        taskview_initializer
+
+        @action ||= params[:action]
+
+        respond_to do |format|
+            format.js { render "task_view_all.js.erb" }
+            format.js { render logged_signed_path }
         end
     end
 end

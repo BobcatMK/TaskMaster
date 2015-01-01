@@ -55,11 +55,14 @@ Rails.application.routes.draw do
 
   # TASKVIEW CONTROLLER
   get "/application/task_view/(:sort_by)",to: "taskview#task_view",as: :task_view
+  get "/application/task_view_unassigned/(:sort_by)",to: "taskview#task_view_unassigned",as: :task_view_unassigned
+  get "/application/task_view_all/(:sort_by)",to: "taskview#task_view_all",as: :task_view_all
   patch "/application/task_view_edit_get",to: "taskview#task_view_edit_get",as: :task_view_edit_get
   patch "/application/task_view_edit",to: "taskview#task_view_edit",as: :task_view_edit
-  get "/application/task_view_create_get/(:date_year)/(:date_month)/(:date_day)",to: "taskview#task_view_create_get",as: :task_view_create_get
+  get "/application/task_view_create_get/(:date_year)/(:date_month)/(:date_day)/(:controller_action)",to: "taskview#task_view_create_get",as: :task_view_create_get
   post "application/task_view_create",to: "taskview#task_view_create",as: :task_view_create
   patch "/application/task_view_completed",to: "taskview#task_view_completed",as: :task_view_completed
+
 
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.

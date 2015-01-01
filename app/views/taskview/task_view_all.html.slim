@@ -10,11 +10,11 @@
 
             .height-56px
                 .margin-auto.text-center
-                    a href="#{task_view_all_path}" data-remote="true"
+                    a href="#{task_view_unassigned_path}" data-remote="true"
                         span.glyphicon.glyphicon-arrow-left.color-337ab7.font-50.m-r-30 aria-hidden="true"
                     .btn.btn-primary.height-56px.vertical-align-top.font-17.p-t-14.width-275px
-                        | Assigned Tasks
-                    a href="#{task_view_unassigned_path}" data-remote="true"
+                        | All Tasks
+                    a href="#{task_view_path}" data-remote="true"
                         span.glyphicon.glyphicon-arrow-right.color-337ab7.font-50.m-l-30 aria-hidden="true"
 
             br
@@ -39,9 +39,9 @@
                             .col-xs-12.b-b-1-dddddd.p-t-b-15
                                 .font-20.m-b-10 Sorted by:
                                 - if @sort_by == "start"
-                                    a.btn.btn-primary.btn-lg href="#{task_view_path('end')}" data-remote="true" Start date
+                                    a.btn.btn-primary.btn-lg href="#{task_view_all_path('end')}" data-remote="true" Start date
                                 - elsif @sort_by == "end"
-                                    a.btn.btn-primary.btn-lg href="#{task_view_path('start')}" data-remote="true" End date
+                                    a.btn.btn-primary.btn-lg href="#{task_view_all_path('start')}" data-remote="true" End date
  
                         .row
                             .col-xs-12
@@ -69,15 +69,19 @@
                                                             input type="hidden" name="date_day" value="#{@today.first.day}"
                                                             input type="hidden" name="task[id]" value="#{task.id}"
                                                             input type="hidden" name="controller_action" value="#{@action}"
+
                                                         span.glyphicon.glyphicon-pencil.font-color-97d077.font-20.m-r-30.edit-submit aria-hidden="true"
                                                     td.text-center
-                                                        = form_for(task,:url => task_view_completed_path,:html => {role: "form"},remote: true) do |object|
-                                                            = object.check_box :completed,:class => "check-box-submit"
-                                                            = object.hidden_field :id
-                                                            input type="hidden" name="date[year]" value="#{@today.first.year}"
-                                                            input type="hidden" name="date[month]" value="#{@today.first.month}"
-                                                            input type="hidden" name="date[day]" value="#{@today.first.day}"
-                                                            input type="hidden" name="controller_action" value="#{@action}"
+                                                        - if task.completed == false
+                                                            = form_for(task,:url => task_view_completed_path,:html => {role: "form"},remote: true) do |object|
+                                                                = object.check_box :completed,:class => "check-box-submit"
+                                                                = object.hidden_field :id
+                                                                input type="hidden" name="date[year]" value="#{@today.first.year}"
+                                                                input type="hidden" name="date[month]" value="#{@today.first.month}"
+                                                                input type="hidden" name="date[day]" value="#{@today.first.day}"
+                                                                input type="hidden" name="controller_action" value="#{@action}"                          
+                                                        - elsif task.completed == true
+                                                            div Yes
                                                 tr.b-b-2px-337ab7 class="task-id-#{task.id}"
                                                     td colspan="4" = task.description
 
