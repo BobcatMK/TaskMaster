@@ -9,6 +9,7 @@ $(document).ready(function() {
             });
         }
     });
+
     // $("body").on("click",".container-480.well.m-t-50",function() {
     //     $(".container-480.well.m-t-50").append("hello");
     // })
@@ -64,5 +65,15 @@ $(document).ready(function() {
         checker()      
     })
 
+    $("body").on("click","*",function() {
+        $(".flash-to-delete").remove();
+    });
+
+    // $('.prevent-double-submit').live('ajax:beforeSend', function(evt, xhr, settings){
+    //   // prevent double submit
+    //   $(':submit', this).click(function() {
+    //     return false;
+    //   });
+    // });
 });
 

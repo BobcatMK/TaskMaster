@@ -1,0 +1,10 @@
+$(".task-edit-get").remove();
+$(".append-here").empty();
+
+<% if @go_back_to == "task_view" %>
+    $(".append-here").append("<%= j(render :template => 'taskview/task_view.html.slim',:locals => {:@action => @go_back_to}) %></div>");
+<% elsif @go_back_to == "task_view_unassigned" %>
+    $(".append-here").append("<%= j(render :template => 'taskview/task_view_unassigned.html.slim',:locals => {:@action => @go_back_to}) %></div>");
+<% elsif @go_back_to == "task_view_all" %>
+    $(".append-here").append("<%= j(render :template => 'taskview/task_view_all.html.slim',:locals => {:@action => @go_back_to}) %></div>");    
+<% end %>

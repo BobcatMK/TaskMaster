@@ -1,0 +1,49 @@
+table.table.table-hover.table-customized.text-center
+    thead
+        tr.info
+            th.text-center Quick Access:
+    tbody
+        tr
+            td 
+                a href="#{logged_signed_path}" data-remote="true" Today
+        tr
+            td
+                a href="#{day_view_change_forward_path(Date.today.year,Date.today.month,Date.today.day)}" data-remote="true" Tomorrow
+        tr
+            td 
+                a href="#{next_seven_days_path}" data-remote="true" Next 7 days
+        tr
+            td 
+                a href="#{task_view_path("start")}" data-remote="true" Assigned Tasks
+        tr
+            td 
+                a href="#{task_view_unassigned_path("start")}" data-remote="true" Unassigned Tasks
+
+br
+br
+table.table.table-hover.table-customized.text-center
+    thead
+        tr.info
+            th.text-center Notes Panel
+
+br
+br
+table.table.table-hover.table-customized.text-center
+    thead
+        tr.info
+            th.text-center ToDo Lists:
+    tbody
+        tr
+            td.font-color-97d077
+                span.glyphicon.glyphicon-plus aria-hidden="true"
+                |  Add ToDo list
+        tr
+            td Work
+        tr
+            td Shopping
+        tr
+            td Personal
+        tr
+            td Health
+        tr
+            td Books to read

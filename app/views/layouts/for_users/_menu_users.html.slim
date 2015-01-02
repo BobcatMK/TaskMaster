@@ -12,11 +12,11 @@ nav.navbar.navbar-default id="main_menu" role="navigation"
                         span.caret.m-l-5
                     ul.dropdown-menu id="ul-dropdown" role="menu" aria-labelledby="dropdown1"
                         li.text-center role="presentation"
-                            a role="menuitem" tabindex="-1" href="#" Settings
+                            a role="menuitem" tabindex="-1" href="#{edit_user_registration_path}" data-remote="true" Settings
                         li role="presentation" class="divider"
                         li.text-center role="presentation"
-                            a role="menuitem" tabindex="-1" href="#" Contact
+                            a role="menuitem" tabindex="-1" href="#{application_contact_path}" data-remote="true" Contact
                         li role="presentation" class="divider"
                         li.text-center role="presentation"
-                            a role="menuitem" tabindex="-1" href="#{destroy_user_session_path}" data-method="delete" rel="nofollow"
+                            a role="menuitem" tabindex="-1" href="#{destroy_user_session_path}" data-method="delete" rel="nofollow" data-confirm="Are you sure?"
                                 | Log Out

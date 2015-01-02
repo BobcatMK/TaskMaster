@@ -1,0 +1,76 @@
+.container.droid-sans
+    .row
+        .col-xs-8
+            - @flash_notice ||= false
+            - if @flash_notice
+                div.flash-to-delete
+                    .alert.alert-success.text-center role="alert" = @flash_notice
+
+            br
+
+            .height-56px
+                .margin-auto.text-center
+                    a href="#{month_backward_path(@particular_month.first.year,@particular_month.first.month)}" data-remote="true"
+                        span.glyphicon.glyphicon-arrow-left.color-337ab7.font-50.m-r-30 aria-hidden="true"
+                    .btn.btn-primary.height-56px.vertical-align-top.font-17.p-t-14.width-275px
+                        = @particular_month_datetime.strftime("%B %Y")
+                    a href="#{month_forward_path(@particular_month.first.year,@particular_month.first.month)}" data-remote="true"
+                        span.glyphicon.glyphicon-arrow-right.color-337ab7.font-50.m-l-30 aria-hidden="true"
+
+            br
+
+            div
+                .well.min-height-400
+                    .row
+                        .col-xs-12
+                            table.table.table-hover
+                                thead
+                                    tr
+                                        th.width-14.text-center.b-1px-337ab7 Monday
+                                        th.width-14.text-center.b-1px-337ab7 Tuesday
+                                        th.width-14.text-center.b-1px-337ab7 Wednesday
+                                        th.width-14.text-center.b-1px-337ab7 Thursday
+                                        th.width-14.text-center.b-1px-337ab7 Friday
+                                        th.width-14.text-center.b-1px-337ab7 Saturday
+                                        th.width-14.text-center.b-1px-337ab7 Sunday
+                                tbody
+                                    - @month_array.each do |inner_array|
+                                        tr.height-70px
+                                            - inner_array.each do |days|
+                                                - if days == "0"
+                                                    td.b-1px-337ab7 
+                                                - else
+                                                    td.b-1px-337ab7.p-0 
+                                                        div.p-l-3 = days.day
+                                                        div.text-center
+                                                            a.text-center.font-12 href="#{day_view_change_forward_path(days.year,days.month,days.day - 1)}" data-remote="true" 
+                                                                - if days.tasks.where(:user_id => current_user.id).length == 0
+                                                                    | No tasks
+                                                                - elsif days.tasks.where(:user_id => current_user.id).length == 1
+                                                                    | 1 task
+                                                                - else
+                                                                    = days.tasks.where(:user_id => current_user.id).length.to_s + " tasks"
+                                                        div.text-center.hover-green
+                                                            a.margin-auto.no-text-decoration.font-color-97d077.font-12 href="#{month_task_get_path(days.year,days.month,days.day)}" data-remote="true"
+                                                                span.glyphicon.glyphicon-plus aria-hidden="true"
+                                                                | Add Task
+
+        .col-xs-4
+            .dropdown
+                button.btn.btn-primary.dropdown-toggle type="button" id="dropdown2" data-toggle="dropdown" aria-expanded="true"
+                    | Month View
+                    span.caret.m-l-5
+                ul.dropdown-menu.dropdown2 role="menu" aria-labelledby="dropdown2"
+                    li.text-center role="presentation"
+                        a role="menuitem" tabindex="-1" href="#{logged_signed_path}" data-remote="true"
+                            | Day View
+                        a role="menuitem" tabindex="-1" href="#{week_view_path}" data-remote="true"
+                            | Week View
+                        a role="menuitem" tabindex="-1" href="#{month_view_path}" data-remote="true"
+                            | Month View
+                        a role="menuitem" tabindex="-1" href="#{task_view_path}" data-remote="true"
+                            | Tasks View
+
+            br
+            br
+            = render partial: "layouts/partials/quick_access.html.slim"

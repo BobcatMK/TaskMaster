@@ -1,0 +1,106 @@
+.container.droid-sans
+    .row
+        .col-xs-8
+            - @flash_notice ||= false
+            - if @flash_notice
+                div.flash-to-delete
+                    .alert.alert-success.text-center role="alert" = @flash_notice
+
+            br
+
+            .height-56px
+                .margin-auto.text-center
+                    a href="#{task_view_unassigned_path}" data-remote="true"
+                        span.glyphicon.glyphicon-arrow-left.color-337ab7.font-50.m-r-30 aria-hidden="true"
+                    .btn.btn-primary.height-56px.vertical-align-top.font-17.p-t-14.width-275px
+                        | All Tasks
+                    a href="#{task_view_path}" data-remote="true"
+                        span.glyphicon.glyphicon-arrow-right.color-337ab7.font-50.m-l-30 aria-hidden="true"
+
+            br
+
+            - if @all_calendars.empty?
+                a.no-text-decoration href="#{task_view_create_get_path(@today.first.year,@today.first.month,@today.first.day,@action)}" data-remote="true"
+                    .well.min-height-400.big-empty-new-task
+                        .font-15.margin-auto.text-center You have no tasks for today
+                        .font-color-97d077.adding-new-task.text-center.font-40.font-bold 
+                            span.glyphicon.glyphicon-plus aria-hidden="true"
+                            |  Add Task
+
+            - else
+                div
+                    .well.min-height-400
+                        .row.text-center.height-50px
+                            .col-xs-12.b-b-1-dddddd.p-b-15
+                                a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077.font-25 href="#{task_view_create_get_path(@today.first.year,@today.first.month,@today.first.day,@action)}" data-remote="true"
+                                    span.glyphicon.glyphicon-plus aria-hidden="true"
+                                    |  Add Task
+
+                            .col-xs-12.b-b-1-dddddd.p-t-b-15
+                                .font-20.m-b-10 Sorted by:
+                                - if @sort_by == "start"
+                                    a.btn.btn-primary.btn-lg href="#{task_view_all_path('end')}" data-remote="true" Start date
+                                - elsif @sort_by == "end"
+                                    a.btn.btn-primary.btn-lg href="#{task_view_all_path('start')}" data-remote="true" End date
+ 
+                        .row
+                            .col-xs-12
+                                - @all_calendars.each_pair do |key,val|
+                                    - @nr = 1
+                                    .text-center.font-25.b-0.vertical-align-middle.height-80px.line-height-3 colspan="5" = key.strftime("%-d %b %Y")
+                                    table.table.table-hover.m-b-0
+                                        tbody
+                                            tr
+                                                th.width-10.b-b-2px-337ab7.b-t-0 #
+                                                th.width-30.b-b-2px-337ab7.b-t-0 From
+                                                th.width-30.b-b-2px-337ab7.b-t-0 To
+                                                th.width-10.b-b-2px-337ab7.b-t-0 Edit
+                                                th.width-20.b-b-2px-337ab7.text-center.b-t-0 Completed
+                                            - val.each do |task|
+                                                tr
+                                                    td rowspan="2" = @nr
+                                                    td = "<b>#{task.start.strftime('%H:%M')}</b> - #{task.start.strftime('%-d %b %Y')}".html_safe
+                                                    td = "<b>#{task.end.strftime('%H:%M')}</b> - #{task.end.strftime('%-d %b %Y')}".html_safe
+                                                    - @nr += 1
+                                                    td.text-center
+                                                        = form_for(task,:url => task_view_edit_get_path,:html => {role: "form"},remote: true) do |object|
+                                                            input type="hidden" name="date_year" value="#{@today.first.year}"
+                                                            input type="hidden" name="date_month" value="#{@today.first.month}"
+                                                            input type="hidden" name="date_day" value="#{@today.first.day}"
+                                                            input type="hidden" name="task[id]" value="#{task.id}"
+                                                            input type="hidden" name="controller_action" value="#{@action}"
+
+                                                        span.glyphicon.glyphicon-pencil.font-color-97d077.font-20.m-r-30.edit-submit aria-hidden="true"
+                                                    td.text-center
+                                                        - if task.completed == false
+                                                            = form_for(task,:url => task_view_completed_path,:html => {role: "form"},remote: true) do |object|
+                                                                = object.check_box :completed,:class => "check-box-submit"
+                                                                = object.hidden_field :id
+                                                                input type="hidden" name="date[year]" value="#{@today.first.year}"
+                                                                input type="hidden" name="date[month]" value="#{@today.first.month}"
+                                                                input type="hidden" name="date[day]" value="#{@today.first.day}"
+                                                                input type="hidden" name="controller_action" value="#{@action}"                          
+                                                        - elsif task.completed == true
+                                                            div Yes
+                                                tr.b-b-2px-337ab7 class="task-id-#{task.id}"
+                                                    td colspan="4" = task.description
+
+        .col-xs-4
+            .dropdown
+                button.btn.btn-primary.dropdown-toggle type="button" id="dropdown2" data-toggle="dropdown" aria-expanded="true"
+                    | Tasks View
+                    span.caret.m-l-5
+                ul.dropdown-menu.dropdown2 role="menu" aria-labelledby="dropdown2"
+                    li.text-center role="presentation"
+                        a role="menuitem" tabindex="-1" href="#{logged_signed_path}" data-remote="true"
+                            | Day View
+                        a role="menuitem" tabindex="-1" href="#{week_view_path}" data-remote="true"
+                            | Week View
+                        a role="menuitem" tabindex="-1" href="#{month_view_path}" data-remote="true"
+                            | Month View
+                        a role="menuitem" tabindex="-1" href="#{task_view_path}" data-remote="true"
+                            | Tasks View
+
+            br
+            br
+            = render partial: "layouts/partials/quick_access.html.slim"

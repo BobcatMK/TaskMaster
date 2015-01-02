@@ -1,0 +1,6 @@
+$(".particular-day-tasks").remove();
+$(".change-me-temp").remove();
+$(".id-<%=@today.first.id%>").after("<%= j(render :partial => 'next_seven_days_generate_tasks.html.slim') %>");
+var tekst = $(".change-me-anchor-<%=@today.first.id%>").text();
+$(".change-me-anchor-<%=@today.first.id%>").css("display","none");
+$(".change-me-append-here-<%=@today.first.id%>").append("<a class='change-me-temp'>" + tekst + "</a>");

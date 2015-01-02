@@ -15,7 +15,6 @@ class MainController < ApplicationController
   end
 
   def ajax_login
-    @token_a = form_authenticity_token
     if !current_user
       respond_to do |format|
         format.html { redirect_to root_path }

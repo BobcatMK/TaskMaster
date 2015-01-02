@@ -1,19 +1,81 @@
 .container.droid-sans
     .row
         .col-xs-8
-            .height-56px
-                .margin-auto.text-center
-                    span.glyphicon.glyphicon-arrow-left.color-337ab7.font-50.m-r-30 aria-hidden="true"
-                    .btn.btn-primary.height-56px.vertical-align-top.font-17.p-t-14 TODAY - Monday, 24 Nov 2014
-                    span.glyphicon.glyphicon-arrow-right.color-337ab7.font-50.m-l-30 aria-hidden="true"
+            - @flash_notice ||= false
+            - if @flash_notice
+                div.flash-to-delete
+                    .alert.alert-success.text-center role="alert" = @flash_notice
 
             br
 
-            .well.min-height-400
-                .font-15.margin-auto.text-center You have no tasks for today
-                .font-color-97d077.adding-new-task.text-center.font-40.font-bold 
-                    span.glyphicon.glyphicon-plus aria-hidden="true"
-                    |  Add Task
+            .height-56px
+                .margin-auto.text-center
+                    a href="#{day_view_change_backward_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
+                        span.glyphicon.glyphicon-arrow-left.color-337ab7.font-50.m-r-30 aria-hidden="true"
+                    .btn.btn-primary.height-56px.vertical-align-top.font-17.p-t-14.width-275px 
+                        - if @today.first == @actually_today.first
+                            | TODAY - #{@actually_today_datetime.strftime('%A, %-d %b %Y')}
+                        - else
+                            | #{@today_datetime.strftime('%A, %-d %b %Y')}
+                    a href="#{day_view_change_forward_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
+                        span.glyphicon.glyphicon-arrow-right.color-337ab7.font-50.m-l-30 aria-hidden="true"
+
+            br
+
+            - if @tasks_for_today.empty?
+                a.no-text-decoration href="#{add_task_get_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
+                    .well.min-height-400.big-empty-new-task
+                        .font-15.margin-auto.text-center You have no tasks for today
+                        .font-color-97d077.adding-new-task.text-center.font-40.font-bold 
+                            span.glyphicon.glyphicon-plus aria-hidden="true"
+                            |  Add Task
+
+            - else
+                div
+                    .well.min-height-400
+                        .row.text-center
+                            a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077.font-25 href="#{add_task_get_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"
+                                span.glyphicon.glyphicon-plus aria-hidden="true"
+                                |  Add Task
+                        .row
+                            .col-xs-12
+                                table.table.table-hover
+                                    thead
+                                        tr
+                                            th.width-10.b-b-2px-337ab7 #
+                                            th.width-30.b-b-2px-337ab7 From
+                                            th.width-30.b-b-2px-337ab7 To
+                                            th.width-10.b-b-2px-337ab7 Edit
+                                            th.width-20.b-b-2px-337ab7.text-center Completed
+
+                                    tbody
+                                        - @nr = 1
+                                        - @sorted.each do |task|
+                                            tr.b-t-2px-337ab7 class="task-id-#{task.id}"
+                                                td rowspan="2" = @nr
+                                                td = "<b>#{task.start.strftime('%H:%M')}</b> - #{task.start.strftime('%-d %b %Y')}".html_safe
+                                                td = "<b>#{task.end.strftime('%H:%M')}</b> - #{task.end.strftime('%-d %b %Y')}".html_safe
+                                                td.text-center
+                                                    = form_for(task,:url => task_edit_get_path,:html => {role: "form"},remote: true) do |object|
+                                                        input type="hidden" name="date_year" value="#{@today.first.year}"
+                                                        input type="hidden" name="date_month" value="#{@today.first.month}"
+                                                        input type="hidden" name="date_day" value="#{@today.first.day}"
+                                                        input type="hidden" name="task[id]" value="#{task.id}"
+                                                        
+                                                    span.glyphicon.glyphicon-pencil.font-color-97d077.font-20.m-r-30.edit-submit aria-hidden="true"
+                                                td.text-center
+                                                    = form_for(task,:url => task_completed_path,:html => {role: "form"},remote: true) do |object|
+                                                        = object.check_box :completed,:class => "check-box-submit"
+                                                        = object.hidden_field :id
+                                                        input type="hidden" name="date[year]" value="#{@today.first.year}"
+                                                        input type="hidden" name="date[month]" value="#{@today.first.month}"
+                                                        input type="hidden" name="date[day]" value="#{@today.first.day}"
+                                            tr.b-b-2px-337ab7 class="task-id-#{task.id}"
+                                                td colspan="4" = task.description
+
+                                            - @nr += 1
+
+
         .col-xs-4
             .dropdown
                 button.btn.btn-primary.dropdown-toggle type="button" id="dropdown2" data-toggle="dropdown" aria-expanded="true"
@@ -21,58 +83,15 @@
                     span.caret.m-l-5
                 ul.dropdown-menu.dropdown2 role="menu" aria-labelledby="dropdown2"
                     li.text-center role="presentation"
-                        a role="menuitem" tabindex="-1" href="#"
+                        a role="menuitem" tabindex="-1" href="#{logged_signed_path}" data-remote="true"
                             | Day View
-                        a role="menuitem" tabindex="-1" href="#"
+                        a role="menuitem" tabindex="-1" href="#{week_view_path}" data-remote="true"
                             | Week View
-                        a role="menuitem" tabindex="-1" href="#"
+                        a role="menuitem" tabindex="-1" href="#{month_view_path}" data-remote="true"
                             | Month View
-                        a role="menuitem" tabindex="-1" href="#"
+                        a role="menuitem" tabindex="-1" href="#{task_view_path}" data-remote="true"
                             | Tasks View
-            br
-            br
-            table.table.table-hover.table-customized.text-center
-                thead
-                    tr.info
-                        th.text-center Quick Access:
-                tbody
-                    tr
-                        td Today
-                    tr
-                        td Tomorrow
-                    tr
-                        td Next 7 days
-                    tr
-                        td Assigned Tasks
-                    tr
-                        td Unassigned Tasks
 
             br
             br
-            table.table.table-hover.table-customized.text-center
-                thead
-                    tr.info
-                        th.text-center Notes Panel
-
-            br
-            br
-            table.table.table-hover.table-customized.text-center
-                thead
-                    tr.info
-                        th.text-center ToDo Lists:
-                tbody
-                    tr
-                        td.font-color-97d077
-                            span.glyphicon.glyphicon-plus aria-hidden="true"
-                            |  Add ToDo list
-                    tr
-                        td Work
-                    tr
-                        td Shopping
-                    tr
-                        td Personal
-                    tr
-                        td Health
-                    tr
-                        td Books to read
-
+            = render partial: "layouts/partials/quick_access.html.slim"

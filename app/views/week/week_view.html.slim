@@ -1,0 +1,71 @@
+.container.droid-sans
+    .row
+        .col-xs-8
+            - @flash_notice ||= false
+            - if @flash_notice
+                div.flash-to-delete
+                    .alert.alert-success.text-center role="alert" = @flash_notice
+
+            br
+
+            .height-56px
+                .margin-auto.text-center
+                    a href="#{week_backward_path(@particular_week.first.id)}" data-remote="true"
+                        span.glyphicon.glyphicon-arrow-left.color-337ab7.font-50.m-r-30 aria-hidden="true"
+                    .btn.btn-primary.height-56px.vertical-align-top.font-17.p-t-14.width-275px
+                        - if @particular_week_datetime != nil
+                            = @particular_week_datetime[0].strftime("%-d %b %Y ") + "-" + @particular_week_datetime.last.strftime(" %-d %b %Y")
+                        - else
+                            = "No records available"
+                    a href="#{week_forward_path(@particular_week.last.id)}" data-remote="true"
+                        span.glyphicon.glyphicon-arrow-right.color-337ab7.font-50.m-l-30 aria-hidden="true"
+
+            br
+
+            div
+                .well.min-height-400
+                    .row
+                        .col-xs-12
+                            table.table.table-hover
+                                tbody
+                                    - @particular_week.each.with_index do |item,index|
+                                        tr.height-60px.b-t-2px-337ab7.b-b-2px-337ab7 class="id-#{item.id}"
+                                            td.width-40.vertical-align-middle.text-center colspan="2"
+                                                - if @particular_week_datetime[index] == Date.today
+                                                    = "TODAY,"
+                                                    = "<br>".html_safe
+                                                    = @particular_week_datetime[index].strftime("%-d %b, %A")
+                                                - else
+                                                    = @particular_week_datetime[index].strftime("%-d %b, %A")
+                                            td.width-40.vertical-align-middle class="change-me-append-here-#{item.id}" colspan="2"
+                                                
+                                                - if item.tasks.where(:user_id => current_user.id).length == 1
+                                                    a class="change-me-anchor-#{item.id} anchor-week-view" href="#{particular_day_tasks_path(item.year,item.month,item.day)}" data-remote="true" 1 task
+                                                - elsif item.tasks.where(:user_id => current_user.id).length == 0
+                                                    a class="change-me-anchor-#{item.id} anchor-week-view" href="#{add_task_week_view_path(item.year,item.month,item.day)}" data-remote="true" No tasks for this day
+                                                - else
+                                                    a class="change-me-anchor-#{item.id} anchor-week-view" href="#{particular_day_tasks_path(item.year,item.month,item.day)}" data-remote="true" = item.tasks.where(:user_id => current_user.id).length.to_s + " tasks"
+                                            td.width-20.vertical-align-middle
+                                                a.margin-auto.text-center.no-text-decoration.font-color-97d077.font-15 href="#{add_task_week_view_path(item.year,item.month,item.day)}" data-remote="true"
+                                                    span.glyphicon.glyphicon-plus aria-hidden="true"
+                                                    |  Add Task
+
+        .col-xs-4
+            .dropdown
+                button.btn.btn-primary.dropdown-toggle type="button" id="dropdown2" data-toggle="dropdown" aria-expanded="true"
+                    | Week View
+                    span.caret.m-l-5
+                ul.dropdown-menu.dropdown2 role="menu" aria-labelledby="dropdown2"
+                    li.text-center role="presentation"
+                        a role="menuitem" tabindex="-1" href="#{logged_signed_path}" data-remote="true"
+                            | Day View
+                        a role="menuitem" tabindex="-1" href="#{week_view_path}" data-remote="true"
+                            | Week View
+                        a role="menuitem" tabindex="-1" href="#{month_view_path}" data-remote="true"
+                            | Month View
+                        a role="menuitem" tabindex="-1" href="#{task_view_path}" data-remote="true"
+                            | Tasks View
+
+            br
+            br
+            = render partial: "layouts/partials/quick_access.html.slim"

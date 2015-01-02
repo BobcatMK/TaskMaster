@@ -2,6 +2,8 @@ class Customization::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
 
+  include ApplicationHelper
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -57,8 +59,20 @@ class Customization::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+
+  def edit
+    respond_to do |format|
+      format.js { render "devise_edit.js.erb" }
+      format.html { redirect_to logged_signed_path }
+    end
+  end
+
   def create
     build_resource(sign_up_params)
+
+    @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+    sorting_algorithm_and_initializer
 
     resource_saved = resource.save
     yield resource if block_given?
@@ -85,9 +99,35 @@ class Customization::RegistrationsController < Devise::RegistrationsController
         @minimum_password_length = resource_class.password_length.min
       end
       respond_to do |format|
-        format.html { render action: "new" }
+        format.html { redirect_to root_path }
         format.xml { render xml: resource }
         format.js { render "create_fail.js.erb" }
+      end
+    end
+  end
+
+  def update
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+
+    resource_updated = update_resource(resource, account_update_params)
+    yield resource if block_given?
+    if resource_updated
+      if is_flashing_format?
+        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+          :update_needs_confirmation : :updated
+        set_flash_message :notice, flash_key
+      end
+      sign_in resource_name, resource, bypass: true
+      #respond_with resource, location: after_update_path_for(resource)
+      respond_to do |format|
+        format.js { render "credentials_updated.js.erb" }
+      end
+    else
+      clean_up_passwords resource
+      #respond_with resource
+      respond_to do |format|
+        format.js { render "credentials_not_updated.js.erb" }
       end
     end
   end

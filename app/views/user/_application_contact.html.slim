@@ -1,0 +1,47 @@
+.container-680.well.m-t-50.flexible-margin-pop-up
+    .row
+        h2.text-center.m-b-30 Contact
+        .disable-popup.font-bold.font-20 x
+        br
+        .text-center.droid-sans.font-17
+            p.m-b-20 All credits for creating this web application goes to Mateusz Kilan.
+
+            p.m-b-20  = "Email: " + @contact.email
+
+            p.m-b-40  = "Phone number: " + @contact.phone
+
+            p.m-b-20  Want to get in touch with me via social media?
+                
+            p.m-b-50
+                = content_tag(:a,fa_icon("facebook-square 3x"),href: "#{@contact.facebook}",class: "m-r-30")
+                = content_tag(:a,fa_icon("github-square 3x"),href: "#{@contact.github}",class: "m-r-30")
+                = content_tag(:a,fa_icon("twitter-square 3x"),href: "#{@contact.twitter}")
+
+    .row.text-center
+        .font-17 Send me a message
+
+        br
+        br
+
+        = form_for(@contactform,:url => url_for(:controller => "user",:action => "send_contact_form"),:html => {:class => "form-horizontal width-80 margin-auto",role: "form"},remote: true) do |object|
+            .form-group
+                = object.label :name,class: "col-xs-2 control-label"
+                .col-xs-10
+                    = object.text_field :name,class: "form-control"
+            .form-group
+                = object.label :email,class: "col-xs-2 control-label"
+                .col-xs-10
+                    = object.text_field :email,class: "form-control"
+            .form-group
+                = object.label :content,class: "col-xs-2 control-label"
+                .col-xs-10
+                    = object.text_area :content,class: "form-control textarea-customized"
+            br
+            .form-group.text-center
+                = object.submit "Send email", class: "btn btn-success btn-lg"
+
+
+javascript:
+    $(".disable-popup").click(function() {
+        $(".application-contact").remove();
+    });    

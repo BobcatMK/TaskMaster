@@ -1,0 +1,4 @@
+$(".task-errors-remove").remove();
+$(".disable-popup.font-bold.font-20").after("<div class='text-center'><%= j(render :partial => 'task_edit_errors') %></div><br />");
+$(".task-errors-remove")[1].remove();
+$(".task-errors").addClass("m-b-30");
