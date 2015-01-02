@@ -12,7 +12,7 @@ class TaskviewController < ApplicationController
 
         respond_to do |format|
             format.js { render "task_view.js.erb" }
-            format.js { render logged_signed_path }
+            format.html { render logged_signed_path }
         end
     end
 

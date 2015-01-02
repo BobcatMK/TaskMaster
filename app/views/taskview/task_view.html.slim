@@ -99,47 +99,5 @@
 
             br
             br
-            table.table.table-hover.table-customized.text-center
-                thead
-                    tr.info
-                        th.text-center Quick Access:
-                tbody
-                    tr
-                        td Today
-                    tr
-                        td Tomorrow
-                    tr
-                        td Next 7 days
-                    tr
-                        td Assigned Tasks
-                    tr
-                        td Unassigned Tasks
 
-            br
-            br
-            table.table.table-hover.table-customized.text-center
-                thead
-                    tr.info
-                        th.text-center Notes Panel
-
-            br
-            br
-            table.table.table-hover.table-customized.text-center
-                thead
-                    tr.info
-                        th.text-center ToDo Lists:
-                tbody
-                    tr
-                        td.font-color-97d077
-                            span.glyphicon.glyphicon-plus aria-hidden="true"
-                            |  Add ToDo list
-                    tr
-                        td Work
-                    tr
-                        td Shopping
-                    tr
-                        td Personal
-                    tr
-                        td Health
-                    tr
-                        td Books to read
+            = render partial: "layouts/partials/quick_access.html.slim"

@@ -45,7 +45,14 @@ Rails.application.routes.draw do
   patch "/application/task_completed_week_view",to: "week#task_completed_week_view",as: :task_completed_week_view
   get "/application/week_backward/(:calendar_id)",to: "week#week_backward",as: :week_backward
   get "/application/week_forward/(:calendar_id)",to: "week#week_forward",as: :week_forward
-
+  get "/application/next_seven_days",to: "week#next_seven_days",as: :next_seven_days
+  get "/application/next_seven_days_generate_tasks/(:year)/(:month)/(:day)",to: "week#next_seven_days_generate_tasks",as: :next_seven_days_generate_tasks
+  get "/application/next_seven_days_add_task_get/(:date_year)/(:date_month)/(:date_day)",to: "week#next_seven_days_add_task_get", as: :next_seven_days_add_task_get
+  post "/application/next_seven_days_add_task",to: "week#next_seven_days_add_task",as: :next_seven_days_add_task
+  patch "/application/next_seven_days_edit_get",to: "week#next_seven_days_edit_get",as: :next_seven_days_edit_get
+  patch "/application/next_seven_days_edit",to: "week#next_seven_days_edit",as: :next_seven_days_edit
+  patch "/application/next_seven_days_completed",to: "week#next_seven_days_completed",as: :next_seven_days_completed
+  
   # MONTH CONTROLLER
   get "/application/month_view",to: "month#month_view",as: :month_view
   get "/application/month_task_get/(:date_year)/(:date_month)/(:date_day)",to: "month#month_task_get",as: :month_task_get

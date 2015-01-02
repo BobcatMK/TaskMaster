@@ -92,6 +92,26 @@ module WeekHelper
         array_constructor
     end
 
+    def next_seven_days_initializer
+        @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day).first
+
+        @today_id = @today.id
+
+        @iterator = 7
+        @iterator_id = @today_id
+
+        @next_seven_days = []
+        @next_seven_days_datetime = []
+
+        while @iterator > 0
+            @for_push_calendar = Calendar.find(@iterator_id)
+            @next_seven_days.push(@for_push_calendar)
+            @next_seven_days_datetime.push(DateTime.new(@for_push_calendar.year,@for_push_calendar.month,@for_push_calendar.day))
+            @iterator_id += 1
+            @iterator -= 1
+        end
+    end
+
     private
 
         def array_constructor
