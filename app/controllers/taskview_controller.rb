@@ -21,6 +21,8 @@ class TaskviewController < ApplicationController
         @todolists = Todolist.where(:user_id => current_user.id)
         @today = Calendar.where(:year => params[:date_year],:month => params[:date_month],:day => params[:date_day])
 
+        @sort_by = params[:sort_by]
+
         @task_start_year = @task.start.year
         @task_start_month = @task.start.month
         @task_start_day = @task.start.day
@@ -114,6 +116,7 @@ class TaskviewController < ApplicationController
         @todolists = Todolist.where(:user_id => current_user.id)
 
         @action = params[:controller_action]
+        @sort_by = params[:sort_by]
 
         respond_to do |format|
             format.js { render "task_view_create_get.js.erb" }
@@ -207,6 +210,29 @@ class TaskviewController < ApplicationController
 
         respond_to do |response|
             response.js { render "task_view_completed_success.js.erb",:locals => {:@remove_this => @task.id} }
+            response.html { redirect_to logged_signed_path }
+        end
+    end
+
+    def task_view_delete
+        @task = Task.find(params[:task_id])
+        @flash_notice = "You have deleted task. It's description was - #{@task.description}"
+        @task.calendars.clear
+        @task.destroy
+        @go_back_to = params[:controller_action_forward]
+
+        if @go_back_to == "task_view"
+            taskview_initializer
+        elsif @go_back_to == "task_view_unassigned"
+            @all_tasks_assigned = Task.where(:user_id => current_user.id,:completed => true)
+            taskview_initializer
+        elsif @go_back_to == "task_view_all"
+            @all_tasks_assigned = Task.where(:user_id => current_user.id)
+            taskview_initializer
+        end    
+
+        respond_to do |response|
+            response.js { render "task_view_delete.js.erb" }
             response.html { redirect_to logged_signed_path }
         end
     end

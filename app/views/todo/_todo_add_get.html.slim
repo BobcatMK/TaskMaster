@@ -1,0 +1,7 @@
+tr.form-todo
+  td.text-center
+    = form_for(@todo_list,:url => todo_add_path,:html => {:class => "width-80 margin-auto prevent-double-submit clear-fix here-goes-error", role: "form"},remote: true) do |todo|
+        = todo.text_field :title, class: "float-left-my width-65"
+        = todo.hidden_field :user_id, value: current_user.id
+        = todo.submit "Add", class: "float-right-my btn btn-success btn-xs height-27px width-30"
+

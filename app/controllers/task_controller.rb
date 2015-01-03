@@ -183,6 +183,21 @@ class TaskController < ApplicationController
 
     end
 
+    def task_delete
+        @task = Task.find(params[:task_id])
+        @flash_notice = "You have deleted task. It description was #{@task.description}"
+        @task.calendars.clear
+        @task.destroy
+
+        @today = Calendar.where(:year => params[:date_year],:month => params[:date_month],:day => params[:date_day])
+        sorting_algorithm_and_initializer
+
+        respond_to do |format|
+            format.js { render "task_delete.js.erb" }
+            format.html { redirect_to logged_signed_path }
+        end
+    end
+
 # BELOW ARE ACTIONS USED BY ADD_TASK_GET TO GENERATE PROPER START AND END DATES FOR NEWLY ADDED TASK
 
     # FIRSTLY YOU CAN SEE START DATE

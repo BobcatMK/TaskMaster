@@ -23,8 +23,18 @@
 .body {
     min-height: 100%;
 }
-.hover-green:hover > * {
+.hover-green:hover > *,
+.hover-green:hover {
     color: green !important;
+}
+.height-27px {
+    height: 27px;
+}
+.width-40px {
+    width: 40px;
+}
+.m-b--20 {
+    margin-bottom: -20px !important;
 }
 .m-t-40 {
     margin-top: 40px;
@@ -43,6 +53,9 @@
 }
 .m-t--50 {
     margin-top: -50px;
+}
+.m-t--30 {
+    margin-top: -30px;
 }
 .m-b-10 {
     margin-bottom: 10px;
@@ -88,6 +101,9 @@
 }
 .m-t-150 {
     margin-top: 150px !important;
+}
+.m-t-8 {
+    margin-top: 8px !important;
 }
 .m-l-30 {
     margin-left: 30px;
@@ -160,6 +176,9 @@
 .width-55 {
     width: 55%;
 }
+.width-100 {
+    width: 100%;
+}
 .width-33 {
     width: 33%;
 }
@@ -199,6 +218,9 @@
 .width-60 {
     width: 60%;
 }
+.width-50 {
+    width: 50%;
+}
 .width-56px {
     width: 56px;
 }
@@ -207,6 +229,9 @@
 }
 .width-275px {
     width: 275px;
+}
+.max-width-50 {
+    max-width: 50%;
 }
 .height-50px {
     height: 50px;
@@ -276,6 +301,13 @@
     margin-right: auto;
     padding-left: 15px;
     padding-right: 15px;
+}
+.container-180 {
+    width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .pop-up {
     position: absolute;
@@ -370,15 +402,38 @@
 .width-100px {
     width: 100px;
 }
+.float-right-my {
+    float: right;
+}
+.float-left-my {
+    float: left;
+}
 a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077:hover,
 .edit-submit:hover,
 .big-empty-new-task:hover > .adding-new-task {
     color: green !important;
 }
-// .table-layout-fixed {
-//     table-layout: fixed !important;
-//     word-wrap: break-word !important;
-// }
+.table-layout-fixed {
+    table-layout: fixed !important;
+    word-wrap: break-word !important;
+}
+
+.clear-fix:before,
+.clear-fix:after {
+    content: " ";
+    display: block;
+}
+.clear-fix:after {
+    clear: both;
+}
+.display-none {
+    display: none;
+}
+
+table {
+    word-wrap: break-word !important;
+}
+
 .line-height-3 {
     line-height: 3;
 }

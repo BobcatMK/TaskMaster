@@ -1,0 +1,21 @@
+.container-480.well.flexible-margin-pop-up
+  .row
+    h2.text-center.m-b-30 Edit todo list
+    .disable-popup.font-bold.font-20 x
+    = form_for(@todo_list,:url => todo_edit_path,remote: true) do |todo_list|
+      .col-xs-12.m-t--30
+        - @todo_list.errors.full_messages.each do |message|
+          .alert.alert-danger.m-b-0.m-t-8.m-b-10.text-center role="alert" = message
+        .form-group.m-t-8
+          = todo_list.label :title
+          = todo_list.text_field :title,:class => "form-control"
+          = todo_list.hidden_field :id
+      .col-xs-4.col-xs-offset-2.text-center
+        = todo_list.submit "Edit",:class => "btn btn-success btn-lg"
+      .col-xs-4.text-center
+        a.btn.btn-danger.btn-lg href="#{todo_delete_path(@todo_list.id)}" data-remote="true" data-confirm="Are you sure?" Delete
+
+javascript:
+  $(".disable-popup").click(function() {
+    $(".add-task-get").remove();
+  });

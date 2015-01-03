@@ -199,6 +199,21 @@ class WeekController < ApplicationController
         end
     end
 
+    def task_delete_week_view
+        @task = Task.find(params[:task_id])
+        @flash_notice = "You have deleted task. It description was #{@task.description}"
+        @task.calendars.clear
+        @task.destroy
+
+        date = Calendar.where(year: params[:date_year],month: params[:date_month],day: params[:date_day]).first
+        week_view_calendar(date)
+
+        respond_to do |format|
+            format.js { render "task_delete_week_view.js.erb" }
+            format.html { redirect_to logged_signed_path }
+        end
+    end
+
     def week_backward
         if params[:calendar_id].to_i - 1 == 0
             render :nothing => true
@@ -411,6 +426,20 @@ class WeekController < ApplicationController
         respond_to do |response|
             response.js { render "next_seven_days_completed.js.erb" }
             response.html { redirect_to logged_signed_path }
+        end
+    end
+
+    def task_delete_next_seven_days
+        @task = Task.find(params[:task_id])
+        @flash_notice = "You have deleted task. It description was #{@task.description}"
+        @task.calendars.clear
+        @task.destroy
+
+        next_seven_days_initializer
+
+        respond_to do |format|
+            format.js { render "task_delete_next_seven_days.js.erb" }
+            format.html { redirect_to logged_signed_path }
         end
     end
 

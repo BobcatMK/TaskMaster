@@ -1,0 +1,4 @@
+$(".add-task-get").remove();
+$(".todo-list-add-success").empty();
+$(".todo-list-add-success").append("<%= j(render :partial => 'layouts/partials/todo_menu_main.html.slim') %>");
+$(".todo-nr-<%=@todo_list.id%>").after("<%= j(render partial: 'todo_edit_success.html.slim') %>");
