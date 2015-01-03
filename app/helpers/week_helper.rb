@@ -95,6 +95,10 @@ module WeekHelper
     def next_seven_days_initializer
         @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day).first
 
+        if @today == nil
+            return
+        end
+
         @today_id = @today.id
 
         @iterator = 7
@@ -104,7 +108,11 @@ module WeekHelper
         @next_seven_days_datetime = []
 
         while @iterator > 0
-            @for_push_calendar = Calendar.find(@iterator_id)
+            begin
+                @for_push_calendar = Calendar.find(@iterator_id)
+            rescue
+                break
+            end
             @next_seven_days.push(@for_push_calendar)
             @next_seven_days_datetime.push(DateTime.new(@for_push_calendar.year,@for_push_calendar.month,@for_push_calendar.day))
             @iterator_id += 1

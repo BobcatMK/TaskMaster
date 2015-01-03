@@ -20,7 +20,7 @@
             br
 
             - if @all_calendars.empty?
-                a.no-text-decoration href="#{task_view_create_get_path(@today.first.year,@today.first.month,@today.first.day,@action)}" data-remote="true"
+                a.no-text-decoration href="#{task_view_create_get_path(@today.first.year,@today.first.month,@today.first.day,@action,@sort_by)}" data-remote="true"
                     .well.min-height-400.big-empty-new-task
                         .font-15.margin-auto.text-center You have no tasks for today
                         .font-color-97d077.adding-new-task.text-center.font-40.font-bold 
@@ -32,7 +32,7 @@
                     .well.min-height-400
                         .row.text-center.height-50px
                             .col-xs-12.b-b-1-dddddd.p-b-15
-                                a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077.font-25 href="#{task_view_create_get_path(@today.first.year,@today.first.month,@today.first.day,@action)}" data-remote="true"
+                                a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077.font-25 href="#{task_view_create_get_path(@today.first.year,@today.first.month,@today.first.day,@action,@sort_by)}" data-remote="true"
                                     span.glyphicon.glyphicon-plus aria-hidden="true"
                                     |  Add Task
 
@@ -68,7 +68,8 @@
                                                             input type="hidden" name="date_month" value="#{@today.first.month}"
                                                             input type="hidden" name="date_day" value="#{@today.first.day}"
                                                             input type="hidden" name="task[id]" value="#{task.id}"
-                                                            input type="hidden" name="controller_action" value="#{@action}"           
+                                                            input type="hidden" name="controller_action" value="#{@action}"
+                                                            input type="hidden" name="sort_by" value="#{@sort_by}"           
                                                                                
                                                         span.glyphicon.glyphicon-pencil.font-color-97d077.font-20.m-r-30.edit-submit aria-hidden="true"
                                                     td.text-center

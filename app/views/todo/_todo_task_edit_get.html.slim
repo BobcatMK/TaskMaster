@@ -5,7 +5,7 @@
 
   .start-time-helper style="display:none;" = @task_start_time
   .end-time-helper style="display:none;" = @task_end_time
-  = form_for(@task,:url => edit_task_week_view_path,:html => {:class => "width-80 margin-auto prevent-double-submit", role: "form"},remote: true) do |object|
+  = form_for(@task,:url => todo_task_edit_path,:html => {:class => "width-80 margin-auto prevent-double-submit", role: "form"},remote: true) do |object|
       .form-group
         .row.text-center
           .col-xs-6
@@ -63,14 +63,16 @@
         input type="hidden" name="date_year" value="#{@today.first.year}"
         input type="hidden" name="date_month" value="#{@today.first.month}"
         input type="hidden" name="date_day" value="#{@today.first.day}"
+        input type="hidden" name="todolist_id" value="#{@task.todolist_id}"
 
       br
       .form-group.text-center
         .row
           .col-xs-6
-            a.btn.btn-lg.btn-danger href="#{task_delete_week_view_path(@today.first.year,@today.first.month,@today.first.day,@task.id)}" data-remote="true" data-confirm="Are you sure?" Delete
+            a.btn.btn-lg.btn-danger href="#{todo_task_delete_path(@today.first.year,@today.first.month,@today.first.day,@task.id)}" data-remote="true" data-confirm="Are you sure?" Delete
           .col-xs-6
             = object.submit "Edit task", class: "btn btn-success btn-lg",:data => {:disable_with => "Saving..."}
+
 
 javascript:
   $(".disable-popup").click(function() {

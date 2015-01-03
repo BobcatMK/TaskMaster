@@ -38,12 +38,13 @@
         .droid-sans.font-17.font-bold.text-center Assign this task to ToDo List:
         br
         .row.text-center
+          .todo-list-id style="display: none;" = @task.todolist_id
           - if @todolists != nil
             = object.select :todolist_id do
-              = content_tag(:option,value: 0) do
+              = content_tag(:option,value: 0,class: "todo-selector") do
                 = "None"
                 - @todolists.each do |list|
-                   = content_tag(:option,list.title,value: list.id)
+                   = content_tag(:option,list.title,value: list.id,:class => "todo-selector")
           - else
             .droid-sans You haven't created any todo lists
 
@@ -63,10 +64,15 @@
         input type="hidden" name="date_month" value="#{@today.first.month}"
         input type="hidden" name="date_day" value="#{@today.first.day}"
         input type="hidden" name="controller_action_forward" value="#{params[:controller_action]}"
+        input type="hidden" name="sort_by" value="#{@sort_by}"
 
       br
       .form-group.text-center
-        = object.submit "Edit task", class: "btn btn-success btn-lg",:data => {:disable_with => "Saving..."}
+        .row
+          .col-xs-6
+            a.btn.btn-lg.btn-danger href="#{task_view_delete_path(@task.id,params[:controller_action],@sort_by)}" data-remote="true" data-confirm="Are you sure?" Delete
+          .col-xs-6
+            = object.submit "Edit task", class: "btn btn-success btn-lg",:data => {:disable_with => "Saving..."}
 
 javascript:
   $(".disable-popup").click(function() {

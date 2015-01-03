@@ -3,8 +3,8 @@ table.table.table-hover.table-customized.text-center
         tr.info
             th.text-center Quick Access:
     tbody
-        tr
-            td 
+        tr 
+            td
                 a href="#{logged_signed_path}" data-remote="true" Today
         tr
             td
@@ -28,22 +28,5 @@ table.table.table-hover.table-customized.text-center
 
 br
 br
-table.table.table-hover.table-customized.text-center
-    thead
-        tr.info
-            th.text-center ToDo Lists:
-    tbody
-        tr
-            td.font-color-97d077
-                span.glyphicon.glyphicon-plus aria-hidden="true"
-                |  Add ToDo list
-        tr
-            td Work
-        tr
-            td Shopping
-        tr
-            td Personal
-        tr
-            td Health
-        tr
-            td Books to read
+table.table.table-hover.table-customized.text-center.table-layout-fixed.todo-list-add-success
+    = render :partial => "layouts/partials/todo_menu_main.html.slim"

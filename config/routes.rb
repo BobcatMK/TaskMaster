@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   patch "/application/task_completed",to: "task#task_completed",as: :task_completed
   patch "/application/task_edit_get",to: "task#task_edit_get",as: :task_edit_get
   patch "/application/edit_task",to: "task#edit_task",as: :edit_task
+  get "/application/task_delete/(:date_year)/(:date_month)/(:date_day)/(:task_id)",to: "task#task_delete",as: :task_delete
 
     # ROUTES FOR CALENDAR AJAX
     get "/application/change_year_forward/(:date_year)/(:date_month)", to: "task#change_year_forward", as: :change_year_forward
@@ -52,7 +53,9 @@ Rails.application.routes.draw do
   patch "/application/next_seven_days_edit_get",to: "week#next_seven_days_edit_get",as: :next_seven_days_edit_get
   patch "/application/next_seven_days_edit",to: "week#next_seven_days_edit",as: :next_seven_days_edit
   patch "/application/next_seven_days_completed",to: "week#next_seven_days_completed",as: :next_seven_days_completed
-  
+  get "/application/task_delete_week_view/(:date_year)/(:date_month)/(:date_day)/(:task_id)",to: "week#task_delete_week_view",as: :task_delete_week_view
+  get "/application/task_delete_next_seven_days/(:date_year)/(:date_month)/(:date_day)/(:task_id)",to: "week#task_delete_next_seven_days",as: :task_delete_next_seven_days
+
   # MONTH CONTROLLER
   get "/application/month_view",to: "month#month_view",as: :month_view
   get "/application/month_task_get/(:date_year)/(:date_month)/(:date_day)",to: "month#month_task_get",as: :month_task_get
@@ -66,9 +69,25 @@ Rails.application.routes.draw do
   get "/application/task_view_all/(:sort_by)",to: "taskview#task_view_all",as: :task_view_all
   patch "/application/task_view_edit_get",to: "taskview#task_view_edit_get",as: :task_view_edit_get
   patch "/application/task_view_edit",to: "taskview#task_view_edit",as: :task_view_edit
-  get "/application/task_view_create_get/(:date_year)/(:date_month)/(:date_day)/(:controller_action)",to: "taskview#task_view_create_get",as: :task_view_create_get
+  get "/application/task_view_create_get/(:date_year)/(:date_month)/(:date_day)/(:controller_action)/(:sort_by)",to: "taskview#task_view_create_get",as: :task_view_create_get
   post "application/task_view_create",to: "taskview#task_view_create",as: :task_view_create
   patch "/application/task_view_completed",to: "taskview#task_view_completed",as: :task_view_completed
+  get "/application/task_view_delete/(:task_id)/(:controller_action_forward)/(:sort_by)",to: "taskview#task_view_delete",as: :task_view_delete
+
+  # TODO CONTROLLER
+  get "/application/todo_add_get",to: "todo#todo_add_get",as: :todo_add_get
+  post "/application/todo_add",to: "todo#todo_add",as: :todo_add
+  patch "/application/todo_edit_get",to: "todo#todo_edit_get",as: :todo_edit_get
+  patch "/application/todo_edit",to: "todo#todo_edit",as: :todo_edit
+  get "/application/todo_delete/(:todolist_id)",to: "todo#todo_delete",as: :todo_delete
+  get "/application/todo_show/(:todolist_id)",to: "todo#todo_show",as: :todo_show
+  # TODO CONTROLLER TASK ACTIONS
+  get "/application/todo_task_add_get/(:date_year)/(:date_month)/(:date_day)/(:todolist_id)",to: "todo#todo_task_add_get",as: :todo_task_add_get
+  post "/application/todo_task_add",to: "todo#todo_task_add",as: :todo_task_add
+  patch "/application/todo_task_edit_get",to: "todo#todo_task_edit_get",as: :todo_task_edit_get
+  patch "/application/todo_task_edit",to: "todo#todo_task_edit",as: :todo_task_edit
+  patch "/application/todo_task_complete",to: "todo#todo_task_complete",as: :todo_task_complete
+  get "/application/todo_task_delete/(:date_year)/(:date_month)/(:date_day)/(:task_id)",to: "todo#todo_task_delete",as: :todo_task_delete
 
 
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }

@@ -1,0 +1,3 @@
+$(".add-task-get").remove();
+$("body").append("<div class='add-task-get pop-up pop-up-background z-index-high'><%= j(render :partial => 'todo_edit_get.html.slim') %></div>");
+$(".flexible-margin-pop-up").css("margin-top",getScrollTop() + 50);
