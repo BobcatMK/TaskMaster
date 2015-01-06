@@ -1,5 +1,7 @@
 class NoteController < ApplicationController
 
+    include ApplicationHelper
+
     def note_show
         @all_notes = Note.where(:user_id => current_user.id)
         @all_folders = Folder.where(:user_id => current_user.id)

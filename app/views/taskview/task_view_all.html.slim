@@ -85,7 +85,7 @@
                                                         - elsif task.completed == true
                                                             div Yes
                                                 tr.b-b-2px-337ab7 class="task-id-#{task.id}"
-                                                    td colspan="4" = task.description
+                                                    td colspan="4" = markdown(task.description)
 
         .col-xs-4
             .dropdown

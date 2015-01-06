@@ -64,6 +64,11 @@
     overflow: hidden !important; // This one hides overflowing text
     text-overflow: ellipsis; // This one adds ... at the end of overflow    
 }
+.overflowing-text-todolist {
+    white-space: nowrap !important; // This one is forcing text to stay on the same line without line breaks
+    overflow: hidden !important; // This one hides overflowing text
+    text-overflow: ellipsis; // This one adds ... at the end of overflow    
+}
 .overflowing-text {
     //word-break: break-all !important; // This one is breaking words every two letters
     white-space: nowrap !important; // This one is forcing text to stay on the same line without line breaks

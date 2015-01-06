@@ -27,6 +27,6 @@ tr.particular-day-tasks
                 input type="hidden" name="date[month]" value="#{@today.first.month}"
                 input type="hidden" name="date[day]" value="#{@today.first.day}"
     tr.particular-day-tasks class="task-id-#{task.id}"
-        td colspan="4" = task.description
+        td colspan="4" = markdown(task.description)
 
     - @nr += 1

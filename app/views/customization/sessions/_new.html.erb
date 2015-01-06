@@ -1,6 +1,6 @@
 <div class="container-480 well flexible-margin-pop-up">
   <h2 class="text-center m-b-30">Log In</h2>
-  <div class="disable-popup font-bold font-20">x</div>
+  <div class="disable-popup font-bold font-20 sign-in-error">x</div>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => { :class => "form-horizontal",:id => "form_log_in"},remote: true) do |f| %>
     <% if flash[:logged] %>
@@ -51,7 +51,7 @@
     });
     $( document ).ajaxError(function() {
       if (!($(".error-login").length)) {
-        $(".disable-popup.font-bold.font-20").after("<div class='error-login text-center'></div>");
+        $(".sign-in-error").after("<div class='error-login text-center'></div>");
         $(".error-login").append("<div class='alert alert-info' role='alert'>Password or login is incorrect</div>");
         $(".error-login").after("<br />");
       };

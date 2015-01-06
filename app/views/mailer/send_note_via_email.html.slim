@@ -1,4 +1,4 @@
 h3 = "#{@sendnote.sender_name} sends you his personal note"
 h4 = "Sent form: #{@sendnote.sender_email}"
 h4 = "Note title: " + @this_note.title
-div = @this_note.content
+div = markdown(@this_note.content)

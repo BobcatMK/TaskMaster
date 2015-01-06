@@ -71,7 +71,7 @@
                                                         input type="hidden" name="date[month]" value="#{@today.first.month}"
                                                         input type="hidden" name="date[day]" value="#{@today.first.day}"
                                             tr.b-b-2px-337ab7 class="task-id-#{task.id}"
-                                                td colspan="4" = task.description
+                                                td colspan="4" = markdown(task.description)
 
                                             - @nr += 1
 

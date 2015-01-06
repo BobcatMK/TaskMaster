@@ -1,4 +1,7 @@
 class Mailer < ActionMailer::Base
+
+    add_template_helper(ApplicationHelper)
+
     default from: "matthew.kilan@gmail.com"
 
     def contact_form(user)

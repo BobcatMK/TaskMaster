@@ -81,7 +81,7 @@
                                                             input type="hidden" name="controller_action" value="#{@action}"
                                                             input type="hidden" name="sort_by" value="#{@sort_by}"
                                                 tr.b-b-2px-337ab7 class="task-id-#{task.id}"
-                                                    td colspan="4" = task.description
+                                                    td colspan="4" = markdown(task.description)
 
         .col-xs-4
             .dropdown

@@ -6,6 +6,6 @@
   <body>
     <h3><%= @user.name %> requested contact</h3>
     <h3>Email: <%= @user.email %></h3>
-    <p>Message: <%= @user.content %></p>
+    <p>Message: <%= markdown(@user.content) %></p>
   </body>
 </html>

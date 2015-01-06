@@ -1,7 +1,8 @@
 class MonthController < ApplicationController
 
     include TaskHelper
-
+    include ApplicationHelper
+    
     def month_view
         @this_year = Date.today.year
         @this_month = Date.today.month

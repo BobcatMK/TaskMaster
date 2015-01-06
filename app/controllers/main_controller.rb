@@ -1,4 +1,6 @@
 class MainController < ApplicationController
+  include ApplicationHelper
+
   layout "application"
 
   def home

@@ -47,6 +47,7 @@ gem 'font-awesome-rails'
 
 # For contact form which will not save any data to base:
 gem "activerecord-tableless", "~> 1.0"
+gem "redcarpet"
 
 # Use unicorn as the app server
 # gem 'unicorn'
