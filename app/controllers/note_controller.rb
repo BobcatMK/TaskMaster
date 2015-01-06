@@ -223,4 +223,35 @@ class NoteController < ApplicationController
             format.js { render "folder_delete.js.erb" }
         end
     end
+
+    def send_note_via_email_get
+        @this_note_id = params[:note_id]
+
+        respond_to do |format|
+            format.js { render "send_note_via_email_get.js.erb" }
+        end
+    end
+
+    def send_note_via_email
+        @this_note = Note.find(params[:note_id])
+
+        @sendnote = Sendnote.new(
+            :sender_name => params[:sendnote][:sender_name],
+            :sender_email => params[:sendnote][:sender_email],
+            :receiver_email => params[:sendnote][:receiver_email]
+        )
+
+        if @sendnote.valid?
+            
+            Mailer.send_note_via_email(@sendnote,@this_note).deliver
+
+            respond_to do |format|
+                format.js { render "send_note_via_email_success.js.erb" }
+            end
+        else
+            respond_to do |format|
+                format.js { render "send_note_via_email_fail.js.erb" }
+            end
+        end
+    end
 end

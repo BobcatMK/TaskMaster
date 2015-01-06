@@ -1,4 +1,4 @@
 $(".add-task-get").remove();
 $("body").append("<div class='add-task-get pop-up pop-up-background z-index-high'><%= j(render :partial => 'folder_edit_get.html.slim') %></div>");
 $(".flexible-margin-pop-up").css("margin-top",getScrollTop() + 50);
-$(".delete-on-edit-row")[0].remove();
+$(".delete-on-edit-row")[1].remove();

@@ -3,11 +3,14 @@
         .col-xs-12
             h3.text-center Edit folders
             a.no-text-decoration.color-333333.disable-popup.font-bold.font-20.top--45 data-remote="true" href="#{note_show_path}" x
+
+    - @flash_message ||= nil
+    - if @flash_message != nil
+        .row.delete-on-edit-row.m-b-10
+            .col-xs-12.text-center
+                .alert.alert-success.m-b-0.m-t-8.flash-to-delete role="alert" = @flash_message
+    .row       
         .col-xs-12.prepend-error-rest-here
-            = @flash_message ||= nil
-            - if @flash_message != nil
-                .row.width-100.delete-on-edit-row
-                    .alert.alert-danger.m-b-0.m-t-8.flash-to-delete role="alert" = @flash_message
             - @all_folders.reverse.each do |folder|
                 = form_for(folder,:url => folder_edit_path,remote: true) do |folder_edit|
                     .row.min-height-38 class="remove-folder-on-click-#{folder.id}"

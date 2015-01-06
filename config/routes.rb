@@ -109,7 +109,9 @@ Rails.application.routes.draw do
   get "/application/folder_edit_get",to: "note#folder_edit_get",as: :folder_edit_get
   patch "/application/folder_edit",to: "note#folder_edit",as: :folder_edit
   get "/application/folder_delete/(:folder_id)",to: "note#folder_delete",as: :folder_delete
-  
+  get "/application/send_note_via_email_get/(:note_id)",to: "note#send_note_via_email_get",as: :send_note_via_email_get
+  post "/application/send_note_via_email",to: "note#send_note_via_email",as: :send_note_via_email
+
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

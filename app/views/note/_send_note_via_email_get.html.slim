@@ -1,0 +1,25 @@
+.container-480.well.flexible-margin-pop-up
+    .row
+        .col-xs-12
+            h3.text-center Send note
+            .disable-popup.font-bold.font-20.top--45 x
+    .row
+        .col-xs-12.prepend-everything-here
+            = form_for(Sendnote.new,:url => send_note_via_email_path,remote: true) do |note|
+                .form-group
+                    = note.label :sender_name
+                    = note.text_field :sender_name,class: "form-control"
+                .form-group
+                    = note.label :sender_email
+                    = note.text_field :sender_email, value: current_user.email,class: "form-control"
+                .form-group
+                    = note.label :receiver_email
+                    = note.text_field :receiver_email, class: "form-control"
+                    input type="hidden" name="note_id" value="#{@this_note_id}"
+                .form-group
+                    = note.submit "Send note",class: "btn btn-success width-100",:data => {:disable_with => "Sending..."}
+
+javascript:
+    $(".disable-popup").click(function() {
+       $(".add-task-get").remove();
+    });
