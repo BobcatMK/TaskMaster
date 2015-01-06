@@ -1,0 +1,78 @@
+.container.droid-sans.uberclass
+    .row
+        .col-xs-8
+            - @flash_notice ||= false
+            - if @flash_notice
+                div.flash-to-delete
+                    .alert.alert-success.text-center role="alert" = @flash_notice
+
+            br
+
+            .height-56px
+                .margin-auto.text-center
+                    .btn.btn-primary.height-56px.vertical-align-top.font-17.p-t-14.width-275px 
+                        | Notes panel
+
+            br
+
+            - if @all_notes.length == 0 && @all_folders.length == 0
+                .on-click-replace
+                    a.no-text-decoration href="#{folder_add_get_initial_path}" data-remote="true"
+                        .well.min-height-400.big-empty-new-task
+                            .font-15.margin-auto.text-center Welcome in notes panel.
+                            .font-15.margin-auto.text-center You don't have any folders or notes yet.
+                            .font-15.margin-auto.text-center Start by adding new folder.                    
+                            .color-337ab7.adding-new-folder.text-center.font-40.font-bold.add-folder.folder-add-get 
+                                span.glyphicon.glyphicon-plus aria-hidden="true"
+                                |  Add Folder
+            - elsif @all_folders.length != 0
+                br
+                div
+                    .well.min-height-400
+                        .row
+                            .col-xs-3.folder-add-get
+                                a.font-15.margin-auto.text-center.no-text-decoration.color-337ab7.font-25.add-folder href="#{folder_add_get_path}" data-remote="true"
+                                    span.glyphicon.glyphicon-plus aria-hidden="true"
+                                    |  Add Folder
+                            .col-xs-9.append-add-note
+                        br
+                        .row
+                            .col-xs-3.well.min-height-400.clear-fix
+                                - if @all_folders.length != 0
+                                    .row.m-b-10
+                                        .col-xs-12
+                                            a.width-100.btn.btn-success href="#{folder_edit_get_path}" data-remote="true" Edit folders
+                                - @all_folders.reverse.each do |folder|
+                                    .row
+                                        .col-xs-12.overflowing-text-folders class="append-after-folder-#{folder.id}"
+                                            a.no-text-decoration.color-333333.hide-first class="parent-icon-folder-#{folder.id}" href="#{folder_show_files_path(folder.id)}" data-remote="true"
+                                                span.glyphicon.glyphicon-folder-close.font-20.m-b-10 aria-hidden="true"
+                                                = "&nbsp;&nbsp;&nbsp;".html_safe + "(#{folder.notes.size}) #{folder.title}"
+                                            a.no-text-decoration.color-333333.hide-second href="#{folder_nil_path}" class="display-none-folder-#{folder.id}" style="display: none;" data-remote="true"
+                                                span.glyphicon.glyphicon-folder-open.font-20.m-b-10 class="icon-switch-folder-#{folder.id}" aria-hidden="true"
+                                                = "&nbsp;&nbsp;&nbsp;".html_safe + "(#{folder.notes.size}) #{folder.title}"
+
+                            .col-xs-9.well.min-height-400.big-empty-new-task
+                                .font-15.margin-auto.text-center No folder selected.                  
+                                .color-337ab7.select-folder.text-center.font-40.font-bold.add-folder 
+                                    |  Select folder
+                                       
+        .col-xs-4
+            .dropdown
+                button.btn.btn-primary.dropdown-toggle type="button" id="dropdown2" data-toggle="dropdown" aria-expanded="true"
+                    | Day View
+                    span.caret.m-l-5
+                ul.dropdown-menu.dropdown2 role="menu" aria-labelledby="dropdown2"
+                    li.text-center role="presentation"
+                        a role="menuitem" tabindex="-1" href="#{logged_signed_path}" data-remote="true"
+                            | Day View
+                        a role="menuitem" tabindex="-1" href="#{week_view_path}" data-remote="true"
+                            | Week View
+                        a role="menuitem" tabindex="-1" href="#{month_view_path}" data-remote="true"
+                            | Month View
+                        a role="menuitem" tabindex="-1" href="#{task_view_path}" data-remote="true"
+                            | Tasks View
+
+            br
+            br
+            = render partial: "layouts/partials/quick_access.html.slim"

@@ -1,0 +1,34 @@
+.col-xs-12
+    .row
+        .col-xs-12
+            .font-20.font-bold.text-center.m-b-30 New note
+            a.no-text-decoration style="color: black;" href="#{folder_show_files_path(@this_folder.id)}" data-remote="true"
+                .font-15.go-back-x X
+    = form_for(@new_note,:url => note_add_path,remote: true) do |note|
+        .form-group
+            = note.label :title
+            = note.text_field :title,class: "form-control"
+        .form-group
+            = note.label :content
+            = note.text_area :content,class: "form-control this-autosize",style: "resize: none;"
+        = note.hidden_field :user_id, value: current_user.id
+        div.grab-folder-id style="display: none;" = @this_folder.id
+        .form-group.text-center
+            .font-20.font-bold.m-b-5
+                | Select note's folder:
+            br
+            = note.select :folder_id do
+                - @all_folders.each do |folder|
+                    = content_tag(:option,folder.title,value: folder.id,class: "select-folder-#{folder.id}")
+        .form-group.text-center
+            = note.submit "Add Note",class: "btn btn-success btn-lg"
+
+    
+javascript:
+    $(".this-autosize").autosize();
+
+    $(document).ajaxComplete(function() {
+        $("#note_folder_id").addClass("form-control m-b-40");
+        var folderId = $(".grab-folder-id").text();
+        $("#note_folder_id > .select-folder-" + folderId).prop("selected",true);
+    });

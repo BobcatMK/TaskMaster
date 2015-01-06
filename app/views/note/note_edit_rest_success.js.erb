@@ -1,0 +1,16 @@
+$(".add-task-get").remove();
+$(".col-xs-3.well.min-height-400.clear-fix").empty();
+$(".col-xs-3.well.min-height-400.clear-fix").append("<%= j(render :partial => 'note_edit_rest_success_2.html.slim') %>");
+$(".hide-first").css("display","inline");
+$(".hide-second").css("display","none");
+$(".m-l-20.overflowing-text").remove();
+$(".append-after-folder-<%=@this_folder.id%>").append("<%= j(render :partial => 'folder_show_files.html.slim') %>");
+$(".display-none-folder-<%=@this_folder.id%>").css("display","inline");
+$(".parent-icon-folder-<%=@this_folder.id%>").css("display","none");
+$(".big-empty-new-task").empty();
+$(".big-empty-new-task").append("<%= j(render :partial => 'note_browse.html.slim') %>");
+$(".hide-second").click(function() {
+    $(this).css("display","none");
+    $(this).siblings("a").css("display","inline");
+    $(".m-l-20.overflowing-text").remove();
+});

@@ -81,6 +81,7 @@ Rails.application.routes.draw do
   patch "/application/todo_edit",to: "todo#todo_edit",as: :todo_edit
   get "/application/todo_delete/(:todolist_id)",to: "todo#todo_delete",as: :todo_delete
   get "/application/todo_show/(:todolist_id)",to: "todo#todo_show",as: :todo_show
+  get "/application/todo_add_cancel",to: "todo#todo_add_cancel",as: :todo_add_cancel
   # TODO CONTROLLER TASK ACTIONS
   get "/application/todo_task_add_get/(:date_year)/(:date_month)/(:date_day)/(:todolist_id)",to: "todo#todo_task_add_get",as: :todo_task_add_get
   post "/application/todo_task_add",to: "todo#todo_task_add",as: :todo_task_add
@@ -89,7 +90,26 @@ Rails.application.routes.draw do
   patch "/application/todo_task_complete",to: "todo#todo_task_complete",as: :todo_task_complete
   get "/application/todo_task_delete/(:date_year)/(:date_month)/(:date_day)/(:task_id)",to: "todo#todo_task_delete",as: :todo_task_delete
 
-
+  # NOTE CONTROLLER
+  get "/application/note_show",to: "note#note_show",as: :note_show
+  get "/application/folder_add_get",to: "note#folder_add_get",as: :folder_add_get
+  get "/application/folder_add_get_initial",to: "note#folder_add_get_initial",as: :folder_add_get_initial
+  post "/application/folder_add",to: "note#folder_add",as: :folder_add
+  post "/application/folder_add_initial",to: "note#folder_add_initial",as: :folder_add_initial
+  get "/application/folder_show_files/(:folder_id)",to: "note#folder_show_files",as: :folder_show_files
+  get "/application/note_add_get/(:folder_id)",to: "note#note_add_get",as: :note_add_get
+  post "/application/note_add",to: "note#note_add",as: :note_add
+  get "/application/folder_nil",to: "note#folder_nil",as: :folder_nil
+  get "/application/note_browse/(:note_id)",to: "note#note_browse",as: :note_browse
+  get "/application/note_edit_content_get/(:note_id)",to: "note#note_edit_content_get",as: :note_edit_content_get
+  patch "/application/note_edit_content",to: "note#note_edit_content",as: :note_edit_content
+  get "/application/note_edit_rest_get/(:note_id)",to: "note#note_edit_rest_get",as: :note_edit_rest_get
+  patch "/application/note_edit_rest",to: "note#note_edit_rest",as: :note_edit_rest
+  get "/application/note_delete/(:note_id)",to: "note#note_delete",as: :note_delete
+  get "/application/folder_edit_get",to: "note#folder_edit_get",as: :folder_edit_get
+  patch "/application/folder_edit",to: "note#folder_edit",as: :folder_edit
+  get "/application/folder_delete/(:folder_id)",to: "note#folder_delete",as: :folder_delete
+  
   devise_for :users, controllers: { registrations: "customization/registrations",sessions: "customization/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -61,13 +61,16 @@
                                                         
                                                     span.glyphicon.glyphicon-pencil.font-color-97d077.font-20.m-r-30.edit-submit aria-hidden="true"
                                                 td.text-center
-                                                    = form_for(task,:url => todo_task_complete_path,:html => {role: "form"},remote: true) do |object|
-                                                        = object.check_box :completed,:class => "check-box-submit"
-                                                        = object.hidden_field :id
-                                                        input type="hidden" name="date[year]" value="#{@today.first.year}"
-                                                        input type="hidden" name="date[month]" value="#{@today.first.month}"
-                                                        input type="hidden" name="date[day]" value="#{@today.first.day}"
-                                                        input type="hidden" name="todolist_id" value="#{task.todolist_id}"
+                                                    - if task.completed == false
+                                                        = form_for(task,:url => todo_task_complete_path,:html => {role: "form"},remote: true) do |object|
+                                                            = object.check_box :completed,:class => "check-box-submit"
+                                                            = object.hidden_field :id
+                                                            input type="hidden" name="date[year]" value="#{@today.first.year}"
+                                                            input type="hidden" name="date[month]" value="#{@today.first.month}"
+                                                            input type="hidden" name="date[day]" value="#{@today.first.day}"
+                                                            input type="hidden" name="todolist_id" value="#{task.todolist_id}"
+                                                    - else
+                                                        | Yes
                                             tr.b-b-2px-337ab7 class="task-id-#{task.id}"
                                                 td colspan="4" = task.description
 

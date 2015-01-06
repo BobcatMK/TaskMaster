@@ -1,0 +1,9 @@
+= form_for(@new_folder,:url => folder_add_path,remote: true) do |new_folder|
+    .row
+        .col-xs-12
+            = new_folder.text_field :title,class: "width-100"
+            = new_folder.hidden_field :user_id, value: current_user.id
+        .col-xs-12.btn-group
+            = new_folder.submit "Add",class: "width-50 btn btn-success"
+            a.btn.btn-danger.width-50.folder-add-fail href="#{note_show_path}" data-remote="true"
+                span.glyphicon.glyphicon-remove.folder-add-x

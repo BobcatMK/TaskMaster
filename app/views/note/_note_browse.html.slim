@@ -1,0 +1,18 @@
+.row.m-t-5
+    .col-xs-12
+        .col-xs-4.p-0
+            div
+                b Title:
+                = @this_note.title
+        .col-xs-4.col-xs-offset-4.text-right.p-0
+            a.no-text-decoration.color-333333 href="#{note_edit_content_get_path(@this_note.id)}" data-remote="true"
+                span.glyphicon.glyphicon-edit.font-20 aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Edit content"
+            a.no-text-decoration.color-333333 href="#{note_edit_rest_get_path(@this_note.id)}" data-remote="true"
+                span.glyphicon.glyphicon-pencil.font-20.m-l-20 aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Note's settings"
+            a.no-text-decoration.color-333333 href="#" data-remote="true"
+                span.glyphicon.glyphicon-envelope.font-20.m-l-20 aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Send via email"
+
+.row.m-t-5
+    .col-xs-12.b-b-2px-337ab7
+        div
+            = @this_note.content

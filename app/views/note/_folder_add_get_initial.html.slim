@@ -1,0 +1,9 @@
+.well.min-height-400.big-empty-new-task
+    .font-15.margin-auto.text-center Welcome in notes panel.
+    .font-15.margin-auto.text-center You don't have any folders or notes yet.
+    .font-15.margin-auto.text-center Start by adding new folder.                    
+    .adding-new-folder-initial.text-center.font-20.font-bold
+        = form_for(@new_folder,:url => folder_add_initial_path,remote: true) do |new_folder|
+            = new_folder.text_field :title,class: "width-65"
+            = new_folder.hidden_field :user_id, value: current_user.id
+            = new_folder.submit "Add",class: "width-35 btn btn-success folder-add-fail m-t--4"

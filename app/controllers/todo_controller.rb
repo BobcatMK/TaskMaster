@@ -47,6 +47,12 @@ class TodoController < ApplicationController
         end           
     end
 
+    def todo_add_cancel
+        respond_to do |format|
+            format.js { render "todo_add_cancel.js.erb" }
+        end
+    end
+
     def todo_delete
         @todo_list = Todolist.find(params[:todolist_id])
         @all_tasks = Task.where(:todolist_id => @todo_list.id,:user_id => current_user.id,:completed => false)
@@ -64,7 +70,7 @@ class TodoController < ApplicationController
 
     def todo_show
         @todo_list = Todolist.find(params[:todolist_id])
-        @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id,:completed => false)
+        @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id)
         @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
 
         sorting_algorithm_and_initializer
@@ -133,7 +139,7 @@ class TodoController < ApplicationController
             @flash_notice = "You have added new task for #{@starting_date[0]}/#{@starting_date[1]}/#{@starting_date[2]}"
 
             @todo_list = Todolist.find(params[:todolist_id])
-            @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id,:completed => false)
+            @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id)
             @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
 
             sorting_algorithm_and_initializer
@@ -191,7 +197,8 @@ class TodoController < ApplicationController
             :end => DateTime.new(@end_date_split[0].to_i,@end_date_split[1].to_i,@end_date_split[2].to_i,@end_time_split[0].to_i,@end_time_split[1].to_i),
             :description => params[:task][:description],
             :todolist_id => params[:task][:todolist_id],
-            :user_id => params[:task][:user_id])
+            :user_id => params[:task][:user_id],
+            :completed => false)
 
             @starting_date = [@task.start.year,@task.start.month,@task.start.day]
             @ending_date = [@task.end.year,@task.end.month,@task.end.day]
@@ -218,7 +225,7 @@ class TodoController < ApplicationController
             @flash_notice = "You have edited task. It starts at #{@starting_date[0]}/#{@starting_date[1]}/#{@starting_date[2]} and ends at #{@ending_date[0]}/#{@ending_date[1]}/#{@ending_date[2]}"
 
             @todo_list = Todolist.find(params[:todolist_id])
-            @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id,:completed => false)
+            @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id)
             @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
 
             sorting_algorithm_and_initializer
@@ -240,7 +247,7 @@ class TodoController < ApplicationController
         @task.update(:completed => params[:task][:completed])
 
         @todo_list = Todolist.find(params[:todolist_id])
-        @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id,:completed => false)
+        @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id)
         @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
 
         sorting_algorithm_and_initializer
@@ -254,15 +261,12 @@ class TodoController < ApplicationController
     def todo_task_delete
         @task = Task.find(params[:task_id])
         @list_id = @task.todolist_id
-        puts "AAAAAAAAAAAA"
-        puts @list_id
-        puts "AAAAAAAAAAAAA"
         @flash_notice = "You have deleted task. It description was #{@task.description}"
         @task.calendars.clear
         @task.destroy
 
         @todo_list = Todolist.find(@list_id)
-        @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id,:completed => false)
+        @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id)
         @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
 
         sorting_algorithm_and_initializer

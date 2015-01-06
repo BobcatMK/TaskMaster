@@ -1,0 +1,33 @@
+.container-180.well.flexible-margin-pop-up
+    .row
+        .col-xs-12
+            h3.text-center Edit note
+            .disable-popup.font-bold.font-20 x
+            div.grab-folder-id style="display: none;" = @this_note.folder_id
+        .col-xs-12.prepend-error-rest-here
+            = form_for(@this_note,:url => note_edit_rest_path,:html => {:class => "width-80 margin-auto prevent-double-submit edit-note-form", role: "form"},remote: true) do |note|
+                .form-group.form-group-customized
+                    = note.label :title
+                    = note.text_field :title,class: "form-control"
+                .form-group
+                    = note.select :folder_id do
+                        - @all_folders.reverse.each do |folder|
+                            = content_tag(:option,folder.title,value: folder.id,class: "my-parent-add-class select-folder-get-#{folder.id}")
+                    = note.hidden_field :id
+                .form-group
+                    = note.submit "Edit",class: "btn btn-success width-100"
+                .form-group
+                    a.btn.btn-danger.width-100 href="#{note_delete_path(@this_note.id)}" data-remote="true" data-confirm="Are you sure?" Delete
+
+javascript:
+    $(".disable-popup").click(function() {
+        $(".add-task-get").remove();
+    });
+
+    $(".my-parent-add-class").parent().addClass("form-control");
+
+    var grabId = $(".grab-folder-id").text();
+    console.log(grabId);
+    $(".select-folder-get-" + grabId).prop("selected",true);
+
+

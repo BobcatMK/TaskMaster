@@ -1,0 +1,9 @@
+- @all_folders.reverse.each do |folder|
+    .row
+        .col-xs-12 class="append-after-folder-#{folder.id}"
+            a.no-text-decoration.color-333333.hide-first class="parent-icon-folder-#{folder.id}" href="#{folder_show_files_path(folder.id)}" data-remote="true"
+                span.glyphicon.glyphicon-folder-close.font-20.m-b-10 aria-hidden="true"
+                = "&nbsp;&nbsp;&nbsp;".html_safe + "#{folder.title} (#{folder.notes.size})"
+            a.no-text-decoration.color-333333.hide-second href="#{folder_nil_path}" class="display-none-folder-#{folder.id}" style="display: none;" data-remote="true"
+                span.glyphicon.glyphicon-folder-open.font-20.m-b-10 class="icon-switch-folder-#{folder.id}" aria-hidden="true"
+                = "&nbsp;&nbsp;&nbsp;".html_safe + "#{folder.title} (#{folder.notes.size})"

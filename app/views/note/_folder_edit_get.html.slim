@@ -1,0 +1,29 @@
+.container-480.well.flexible-margin-pop-up
+    .row
+        .col-xs-12
+            h3.text-center Edit folders
+            a.no-text-decoration.color-333333.disable-popup.font-bold.font-20.top--45 data-remote="true" href="#{note_show_path}" x
+        .col-xs-12.prepend-error-rest-here
+            = @flash_message ||= nil
+            - if @flash_message != nil
+                .row.width-100.delete-on-edit-row
+                    .alert.alert-danger.m-b-0.m-t-8.flash-to-delete role="alert" = @flash_message
+            - @all_folders.reverse.each do |folder|
+                = form_for(folder,:url => folder_edit_path,remote: true) do |folder_edit|
+                    .row.min-height-38 class="remove-folder-on-click-#{folder.id}"
+                        .col-xs-2.m-t-6 class="append-after-folder-#{folder.id}"
+                            .color-333333.overflowing-text-folders-edit
+                                span.glyphicon.glyphicon-folder-close.font-20.m-b-10 aria-hidden="true"
+                                = "&nbsp;&nbsp;&nbsp;".html_safe + "(#{folder.notes.size})"
+                        .col-xs-6
+                            = folder_edit.text_field :title,class: "form-control"
+                            = folder_edit.hidden_field :id
+                        .col-xs-4
+                            .btn-group.width-100 role="group"
+                                = folder_edit.submit "Edit",class: "btn btn-success"
+                                a.btn.btn-danger href="#{folder_delete_path(folder.id)}" data-remote="true" data-confirm="All corresponding notes will be deleted, are you sure?" Delete
+
+javascript:
+    $(".disable-popup").click(function() {
+       $(".add-task-get").remove();
+    });

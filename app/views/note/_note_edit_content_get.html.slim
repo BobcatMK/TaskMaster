@@ -1,0 +1,26 @@
+.row.m-t-5
+    .col-xs-12
+        .col-xs-4.p-0
+            div
+                b Title:
+                = @this_note.title
+        .col-xs-4.col-xs-offset-4.text-right.p-0
+            a.no-text-decoration.color-333333 href="#{note_browse_path(@this_note.id)}" data-remote="true"
+                span.glyphicon.glyphicon-edit.font-20 aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Edit content"
+            a.no-text-decoration.color-333333 href="#" data-remote="true"
+                span.glyphicon.glyphicon-pencil.font-20.m-l-20 aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Note's settings"
+            a.no-text-decoration.color-333333 href="#" data-remote="true"
+                span.glyphicon.glyphicon-envelope.font-20.m-l-20 aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Send via email"
+        .col-xs-12.note-content-error
+
+.row.m-t-5
+    .col-xs-12.b-b-2px-337ab7
+        div
+            = form_for(@this_note,:url => note_edit_content_path,remote: true) do |note|
+                = note.text_area :content,class: "note-content-autosize min-height-100 resize-none width-100"
+                = note.hidden_field :id
+                .width-100.text-center.m-b-30
+                    = note.submit "Save note",class: "btn btn-success btn-lg width-100"
+
+javascript:
+    $(".note-content-autosize").autosize();
