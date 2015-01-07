@@ -60,9 +60,10 @@
     //text-overflow: ellipsis; // This one adds ... at the end of overflow    
 }
 .overflowing-text-folders {
-    white-space: nowrap !important; // This one is forcing text to stay on the same line without line breaks
-    overflow: hidden !important; // This one hides overflowing text
-    text-overflow: ellipsis; // This one adds ... at the end of overflow    
+    //white-space: nowrap !important; // This one is forcing text to stay on the same line without line breaks
+    //overflow: hidden !important; // This one hides overflowing text
+    //text-overflow: ellipsis; // This one adds ... at the end of overflow 
+    word-break: break-all !important;   
 }
 .overflowing-text-todolist {
     white-space: nowrap !important; // This one is forcing text to stay on the same line without line breaks
@@ -70,10 +71,10 @@
     text-overflow: ellipsis; // This one adds ... at the end of overflow    
 }
 .overflowing-text {
-    //word-break: break-all !important; // This one is breaking words every two letters
-    white-space: nowrap !important; // This one is forcing text to stay on the same line without line breaks
-    overflow: hidden !important; // This one hides overflowing text
-    text-overflow: ellipsis; // This one adds ... at the end of overflow
+    word-break: break-all !important; // This one is breaking words every two letters
+    //white-space: nowrap !important; // This one is forcing text to stay on the same line without line breaks
+    //overflow: hidden !important; // This one hides overflowing text
+    //text-overflow: ellipsis; // This one adds ... at the end of overflow
 }
 .font-style-normal {
     font-style: normal;
@@ -530,6 +531,9 @@ body {
 }
 .border-1px-skyblue {
     border: 1px solid skyblue;
+}
+.bg-color-337ab7 {
+    background-color: #337ab7;
 }
 .calendar-position {
     position: absolute;

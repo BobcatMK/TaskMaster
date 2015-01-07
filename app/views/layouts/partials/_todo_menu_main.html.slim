@@ -16,6 +16,7 @@ tbody
                     a.mouse-over-after href="#{todo_show_path(todo.id)}" data-remote="true" = todo.title
                     = form_for(todo,:url => todo_edit_get_path,:html => {:style => "display: none;"},remote: true) do |todo_list|
                         = todo_list.hidden_field :id
+                        input type="hidden" name="controller_action" value="#{params[:action]}"
                     span class='glyphicon glyphicon-pencil font-color-97d077 font-20 float-right-my todo-pencil display-none cursor-pointer todo-nr-#{todo.id}' aria-hidden='true'
 
 

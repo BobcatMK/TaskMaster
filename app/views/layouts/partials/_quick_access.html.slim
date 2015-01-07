@@ -5,19 +5,19 @@ table.table.table-hover.table-customized.text-center
     tbody
         tr 
             td
-                a href="#{logged_signed_path}" data-remote="true" Today
+                a.color-333333 href="#{logged_signed_path}" data-remote="true" Today
         tr
             td
-                a href="#{day_view_change_forward_path(Date.today.year,Date.today.month,Date.today.day)}" data-remote="true" Tomorrow
+                a.color-333333 href="#{day_view_change_forward_path(Date.today.year,Date.today.month,Date.today.day)}" data-remote="true" Tomorrow
         tr
             td 
-                a href="#{next_seven_days_path}" data-remote="true" Next 7 days
+                a.color-333333 href="#{next_seven_days_path}" data-remote="true" Next 7 days
         tr
             td 
-                a href="#{task_view_path("start")}" data-remote="true" Assigned Tasks
+                a.color-333333 href="#{task_view_path("start")}" data-remote="true" Assigned Tasks
         tr
             td 
-                a href="#{task_view_unassigned_path("start")}" data-remote="true" Unassigned Tasks
+                a.color-333333 href="#{task_view_unassigned_path("start")}" data-remote="true" Unassigned Tasks
 
 br
 br
@@ -25,8 +25,9 @@ table.table.table-hover.table-customized.text-center
     thead
         tr.info
             th.text-center 
-                a href="#{note_show_path}" data-remote="true" Notes Panel
-
+                a.no-text-decoration.color-333333 href="#{note_show_path}" data-remote="true"
+                    span.glyphicon.glyphicon-circle-arrow-right aria-hidden="true"
+                    = "&nbsp;&nbsp".html_safe + "Notes Panel"
 br
 br
 table.table.table-hover.table-customized.text-center.table-layout-fixed.todo-list-add-success

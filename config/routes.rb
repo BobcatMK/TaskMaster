@@ -79,7 +79,7 @@ Rails.application.routes.draw do
   post "/application/todo_add",to: "todo#todo_add",as: :todo_add
   patch "/application/todo_edit_get",to: "todo#todo_edit_get",as: :todo_edit_get
   patch "/application/todo_edit",to: "todo#todo_edit",as: :todo_edit
-  get "/application/todo_delete/(:todolist_id)",to: "todo#todo_delete",as: :todo_delete
+  get "/application/todo_delete/(:todolist_id)/(:controller_action)",to: "todo#todo_delete",as: :todo_delete
   get "/application/todo_show/(:todolist_id)",to: "todo#todo_show",as: :todo_show
   get "/application/todo_add_cancel",to: "todo#todo_add_cancel",as: :todo_add_cancel
   # TODO CONTROLLER TASK ACTIONS

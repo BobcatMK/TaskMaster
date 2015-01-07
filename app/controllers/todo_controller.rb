@@ -28,6 +28,8 @@ class TodoController < ApplicationController
     def todo_edit_get
         @todo_list = Todolist.find(params[:todolist][:id])
 
+        @controller_action = params[:controller_action]
+        
         respond_to do |format|
             format.js { render "todo_edit_get.js.erb" }
         end
@@ -36,7 +38,17 @@ class TodoController < ApplicationController
     def todo_edit
         @todo_list = Todolist.find(params[:todolist][:id])
 
+        @controller_action = params[:controller_action]
+
         if @todo_list.update(:title => params[:todolist][:title])
+
+            if @controller_action == "todo_show"
+                @tasks_for_today = Task.where(:user_id => current_user.id,:todolist_id => @todo_list.id)
+                @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+
+                sorting_algorithm_and_initializer
+            end
+
             respond_to do |format|
                 format.js { render "todo_edit_success.js.erb" }
             end
@@ -62,6 +74,12 @@ class TodoController < ApplicationController
         end
 
         @todo_list.destroy
+        @controller_action = params[:controller_action]
+
+        if @controller_action == "todo_show"
+            @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
+            sorting_algorithm_and_initializer
+        end
 
         respond_to do |format|
             format.js { render "todo_delete.js.erb" }

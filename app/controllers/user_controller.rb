@@ -7,7 +7,7 @@ class UserController < ApplicationController
     def logged_signed
 
         @today = Calendar.where(:year => Date.today.year,:month => Date.today.month,:day => Date.today.day)
-        
+ 
         sorting_algorithm_and_initializer
 
         if current_user

@@ -1,6 +1,6 @@
 - @this_folder.notes.each do |note|
     .m-l-20.overflowing-text 
         div.for-navigation-folder-id style="display: none;" = @this_folder.id
-        a.no-text-decoration.color-333333 href="#{note_browse_path(note.id)}" data-remote="true"
+        a.no-text-decoration.color-333333 href="#{note_browse_path(note.id)}" data-remote="true" title="#{note.title}"
             .span.glyphicon.glyphicon-file.font-14 aria-hidden="true" 
             = "&nbsp;&nbsp;".html_safe + "#{note.title}"

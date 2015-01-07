@@ -1,3 +1,9 @@
-$(".add-task-get").remove();
-$(".todo-list-add-success").empty();
-$(".todo-list-add-success").append("<%= j(render :partial => 'layouts/partials/todo_menu_main.html.slim') %>");
+<% if @controller_action == "todo_show" %>
+    $(".append-here").empty();
+    $(".add-task-get").remove();
+    $(".append-here").append("<%= j(render :template => 'user/logged_signed.html.slim') %>");
+<% else %>
+    $(".add-task-get").remove();
+    $(".todo-list-add-success").empty();
+    $(".todo-list-add-success").append("<%= j(render :partial => 'layouts/partials/todo_menu_main.html.slim') %>");
+<% end %>

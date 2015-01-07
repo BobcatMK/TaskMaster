@@ -1,4 +1,13 @@
-$(".add-task-get").remove();
-$(".todo-list-add-success").empty();
-$(".todo-list-add-success").append("<%= j(render :partial => 'layouts/partials/todo_menu_main.html.slim') %>");
-$(".todo-nr-<%=@todo_list.id%>").after("<%= j(render partial: 'todo_edit_success.html.slim') %>");
+<% if @controller_action != "todo_show" %>
+    $(".add-task-get").remove();
+    $(".todo-list-add-success").empty();
+    $(".todo-list-add-success").append("<%= j(render :partial => 'layouts/partials/todo_menu_main.html.slim') %>");
+    $(".todo-nr-<%=@todo_list.id%>").after("<%= j(render partial: 'todo_edit_success.html.slim') %>");
+<% elsif @controller_action == "todo_show" %>
+    $(".add-task-get").remove();
+    $(".todo-list-add-success").empty();
+    $(".todo-list-add-success").append("<%= j(render :partial => 'layouts/partials/todo_menu_main.html.slim') %>");
+    $(".todo-nr-<%=@todo_list.id%>").after("<%= j(render partial: 'todo_edit_success.html.slim') %>");
+    $(".reload-me-on-edit").empty();
+    $(".reload-me-on-edit").append("<%= j(render :partial => 'reload_me_on_edit.html.slim') %>");
+<% end %>

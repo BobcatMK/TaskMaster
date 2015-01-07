@@ -7,7 +7,7 @@
                     .alert.alert-success.text-center role="alert" = @flash_notice
 
             br
-
+            = @url
             .height-56px
                 .margin-auto.text-center
                     a href="#{day_view_change_backward_path(@today.first.year,@today.first.month,@today.first.day)}" data-remote="true"

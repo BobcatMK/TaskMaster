@@ -9,7 +9,8 @@
                 .form-group.form-group-customized
                     = note.label :title
                     = note.text_field :title,class: "form-control"
-                .form-group
+                .form-group.form-group-customized
+                    = note.label :folder_id
                     = note.select :folder_id do
                         - @all_folders.reverse.each do |folder|
                             = content_tag(:option,folder.title,value: folder.id,class: "my-parent-add-class select-folder-get-#{folder.id}")

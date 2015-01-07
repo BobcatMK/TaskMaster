@@ -10,10 +10,11 @@
           = todo_list.label :title
           = todo_list.text_field :title,:class => "form-control"
           = todo_list.hidden_field :id
+          input type="hidden" name="controller_action" value="#{@controller_action}"
       .col-xs-4.col-xs-offset-2.text-center
         = todo_list.submit "Edit",:class => "btn btn-success btn-lg"
       .col-xs-4.text-center
-        a.btn.btn-danger.btn-lg href="#{todo_delete_path(@todo_list.id)}" data-remote="true" data-confirm="Are you sure?" Delete
+        a.btn.btn-danger.btn-lg href="#{todo_delete_path(@todo_list.id,@controller_action)}" data-remote="true" data-confirm="Are you sure?" Delete
 
 javascript:
   $(".disable-popup").click(function() {

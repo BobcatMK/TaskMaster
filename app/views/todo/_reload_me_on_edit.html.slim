@@ -1,0 +1,70 @@
+- @flash_notice ||= false
+- if @flash_notice
+    div.flash-to-delete
+        .alert.alert-success.text-center role="alert" = @flash_notice
+
+br
+
+.height-56px
+    .margin-auto.text-center
+        .btn.btn-primary.height-56px.vertical-align-top.font-17.p-t-14.width-275px 
+            = @todo_list.title
+
+br
+
+- if @tasks_for_today.empty?
+    a.no-text-decoration href="#{todo_task_add_get_path(@today.first.year,@today.first.month,@today.first.day,@todo_list.id)}" data-remote="true"
+        .well.min-height-400.big-empty-new-task
+            .font-15.margin-auto.text-center You have no tasks on this todo list
+            .font-color-97d077.adding-new-task.text-center.font-40.font-bold 
+                span.glyphicon.glyphicon-plus aria-hidden="true"
+                |  Add Task
+
+- else
+    div
+        .well.min-height-400
+            .row.text-center
+                a.font-15.margin-auto.text-center.no-text-decoration.font-color-97d077.font-25 href="#{todo_task_add_get_path(@today.first.year,@today.first.month,@today.first.day,@todo_list.id)}" data-remote="true"
+                    span.glyphicon.glyphicon-plus aria-hidden="true"
+                    |  Add Task
+            .row
+                .col-xs-12
+                    table.table.table-hover
+                        thead
+                            tr
+                                th.width-10.b-b-2px-337ab7 #
+                                th.width-30.b-b-2px-337ab7 From
+                                th.width-30.b-b-2px-337ab7 To
+                                th.width-10.b-b-2px-337ab7 Edit
+                                th.width-20.b-b-2px-337ab7.text-center Completed
+
+                        tbody
+                            - @nr = 1
+                            - @sorted.each do |task|
+                                tr.b-t-2px-337ab7 class="task-id-#{task.id}"
+                                    td rowspan="2" = @nr
+                                    td = "<b>#{task.start.strftime('%H:%M')}</b> - #{task.start.strftime('%-d %b %Y')}".html_safe
+                                    td = "<b>#{task.end.strftime('%H:%M')}</b> - #{task.end.strftime('%-d %b %Y')}".html_safe
+                                    td.text-center
+                                        = form_for(task,:url => todo_task_edit_get_path,:html => {role: "form"},remote: true) do |object|
+                                            input type="hidden" name="date_year" value="#{@today.first.year}"
+                                            input type="hidden" name="date_month" value="#{@today.first.month}"
+                                            input type="hidden" name="date_day" value="#{@today.first.day}"
+                                            input type="hidden" name="task[id]" value="#{task.id}"
+                                            
+                                        span.glyphicon.glyphicon-pencil.font-color-97d077.font-20.m-r-30.edit-submit aria-hidden="true"
+                                    td.text-center
+                                        - if task.completed == false
+                                            = form_for(task,:url => todo_task_complete_path,:html => {role: "form"},remote: true) do |object|
+                                                = object.check_box :completed,:class => "check-box-submit"
+                                                = object.hidden_field :id
+                                                input type="hidden" name="date[year]" value="#{@today.first.year}"
+                                                input type="hidden" name="date[month]" value="#{@today.first.month}"
+                                                input type="hidden" name="date[day]" value="#{@today.first.day}"
+                                                input type="hidden" name="todolist_id" value="#{task.todolist_id}"
+                                        - else
+                                            | Yes
+                                tr.b-b-2px-337ab7 class="task-id-#{task.id}"
+                                    td colspan="4" = markdown(task.description)
+
+                                - @nr += 1
