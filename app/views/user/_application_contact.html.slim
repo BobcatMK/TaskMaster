@@ -38,7 +38,7 @@
                     = object.text_area :content,class: "form-control textarea-customized"
             br
             .form-group.text-center
-                = object.submit "Send email", class: "btn btn-success btn-lg"
+                = object.submit "Send email", class: "btn btn-success btn-lg", data: {:disable_with => "Sending..."}
 
 
 javascript:

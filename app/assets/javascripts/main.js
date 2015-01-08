@@ -20,6 +20,7 @@ $(document).ready(function() {
     // $("body").on("click",".container-480.well.m-t-50",function() {
     //     $(".container-480.well.m-t-50").append("hello");
     // })
+
     function forMobile() {
         if (document.body.clientWidth < 300) {
             $("#taskmaster").removeClass("col-xs-6")
@@ -57,7 +58,29 @@ $(document).ready(function() {
         $(".pop-up").css("height",documentHeight);
         $(".pop-up").css("width",documentWidth);
         forMobile() 
-    })
+
+        if ($(".flexible-margin-pop-up").length > 0) { // Fix for pop ups that overflow whole body element when they appear
+            var popUp = $(".flexible-margin-pop-up");
+            var offset = popUp.offset();
+
+            var top = offset.top;
+            var left = offset.left;
+
+            var bottom = top + popUp.outerHeight();
+            var right = left + popUp.outerWidth();
+
+            if ($("body").outerHeight() < bottom) {
+                $("body").css("height",bottom + 30);
+                $(".pop-up").css("height",$("body").outerHeight());
+
+                $(".disable-popup").on("click",function() {
+                    $("body").css("height","auto");
+                });
+            };
+        };
+
+
+    });
 
     $(window).resize(function() {
         documentHeight = document.body.clientHeight;
