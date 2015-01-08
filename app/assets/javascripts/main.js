@@ -91,8 +91,7 @@ $(document).ready(function() {
     })
 
     $(document).on("page:change",function() {
-        forMobile()
-        checker()      
+        forMobile()     
     })
 
     $("body").on("click","*",function() {
